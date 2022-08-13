@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package com.azuresamples.msalandroidapp;
+package com.graph.adm.Utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -78,6 +78,7 @@ public class MSGraphRequestWrapper {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
+                headers.put("Prefer", "HonorNonIndexedQueriesWarningMayFailRandomly");
                 headers.put("Authorization", "Bearer " + accessToken);
                 return headers;
             }

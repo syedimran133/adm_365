@@ -2,11 +2,9 @@ package com.graph.adm.Fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,21 +13,25 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.graph.adm.Activity.Joss;
 import com.graph.adm.Utils.FlowOrganizer;
-import com.graph.adm.databinding.LayoutWebviewBinding;
+import com.graph.adm.databinding.ApWebviewBinding;
 import com.graph.adm.databinding.WebviewJadeAppBinding;
 
-public class FragmentEmail extends Fragment {
+public class FragmentWebview extends Fragment {
 
-    private WebviewJadeAppBinding binding;
+    private ApWebviewBinding binding;
     private WebView mWebView;
     private ProgressDialog progressDialog;
+    private String url="",title;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
-        binding = WebviewJadeAppBinding.inflate(inflater, container, false);
-        binding.title.setText("Email");
-        binding.header.setVisibility(View.GONE);
+        binding = ApWebviewBinding.inflate(inflater, container, false);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            url = getArguments().getString("URL");
+            title = getArguments().getString("TITLE");
+        }
+        binding.title.setText(title);
         mWebView = binding.webview;
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -60,13 +62,13 @@ public class FragmentEmail extends Fragment {
 
             }
         });
-        mWebView.loadUrl("https://outlook.office.com/mail/");
+        mWebView.loadUrl(url);
         // Enable Javascript
 
         binding.backWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlowOrganizer.getInstance().add(new Dashboard(), false);
+                FlowOrganizer.getInstance().add(new JadeApplications(), false);
             }
         });
         return binding.getRoot();

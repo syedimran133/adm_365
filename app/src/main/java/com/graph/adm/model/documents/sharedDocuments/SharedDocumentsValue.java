@@ -1,13 +1,14 @@
 
 package com.graph.adm.model.documents.sharedDocuments;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
-public class Value {
+public class SharedDocumentsValue {
 
+    @SerializedName("@microsoft.graph.downloadUrl")
+    @Expose
+    private String microsoftGraphDownloadUrl;
     @SerializedName("@odata.type")
     @Expose
     private String odataType;
@@ -47,6 +48,9 @@ public class Value {
     @SerializedName("file")
     @Expose
     private File__1 file;
+    @SerializedName("parentReference")
+    @Expose
+    private ParentReference parentReference;
 
     public String getOdataType() {
         return odataType;
@@ -152,4 +156,19 @@ public class Value {
         this.file = file;
     }
 
+    public ParentReference getParentReference() {
+        return parentReference;
+    }
+
+    public void setParentReference(ParentReference parentReference) {
+        this.parentReference = parentReference;
+    }
+
+    public String getMicrosoftGraphDownloadUrl() {
+        return microsoftGraphDownloadUrl;
+    }
+
+    public void setMicrosoftGraphDownloadUrl(String microsoftGraphDownloadUrl) {
+        this.microsoftGraphDownloadUrl = microsoftGraphDownloadUrl;
+    }
 }

@@ -1,9 +1,12 @@
 package com.graph.adm.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 
@@ -16,6 +19,8 @@ import com.graph.adm.R;
 import com.graph.adm.Utils.AppSingle;
 import com.graph.adm.Utils.FlowOrganizer;
 import com.graph.adm.databinding.ActivityMainBinding;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -45,28 +50,44 @@ public class MainActivity extends AppCompatActivity {
         btn_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //setSelected(4);
-                FlowOrganizer.getInstance().add(new More(), true);
+                setSelected(4);
+                try {
+                    AppSingle.getInstance().getYouTubePlayerView().release();
+                } catch (Exception e) {
+                }
+                FlowOrganizer.getInstance().add(new More(), false);
             }
         });
         btn_documents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //setSelected(3);
+                setSelected(3);
+                try {
+                    AppSingle.getInstance().getYouTubePlayerView().release();
+                } catch (Exception e) {
+                }
                 FlowOrganizer.getInstance().add(new DocumentsPage(), true);
             }
         });
         btn_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //setSelected(2);
+                setSelected(2);
+                try {
+                    AppSingle.getInstance().getYouTubePlayerView().release();
+                } catch (Exception e) {
+                }
                 FlowOrganizer.getInstance().add(new MyCalendar(), true);
             }
         });
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //setSelected(1);
+                setSelected(1);
+                try {
+                    AppSingle.getInstance().getYouTubePlayerView().release();
+                } catch (Exception e) {
+                }
                 FlowOrganizer.getInstance().add(new Dashboard(), true);
             }
         });
@@ -74,19 +95,57 @@ public class MainActivity extends AppCompatActivity {
         FlowOrganizer.getInstance().add(new Dashboard(), true);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public void setSelected(int type) {
         if (type == 1) {
-            binding.homeIcon.setColorFilter(Color.argb(255, 255, 255, 255));
-        binding.tvHome.setTextColor(Color.parseColor("#ffffff"));
+            binding.homeIcon.setImageDrawable(getDrawable(R.drawable.ic_fhome_sel));
+            binding.tvHome.setTextColor(Color.parseColor("#ffffff"));
+            binding.calendarIcon.setImageDrawable(getDrawable(R.drawable.calendar_footer));
+            binding.tvCalendar.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.documentsIcon.setImageDrawable(getDrawable(R.drawable.docs_footer));
+            binding.tvDocuments.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.moreIcon.setImageDrawable(getDrawable(R.drawable.more));
+            binding.tvMore.setTextColor(Color.parseColor("#6BDFFF"));
         } else if (type == 2) {
-            binding.calendarIcon.setColorFilter(Color.argb(255, 255, 255, 255));
+            binding.homeIcon.setImageDrawable(getDrawable(R.drawable.home_alt));
+            binding.tvHome.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.calendarIcon.setImageDrawable(getDrawable(R.drawable.ic_fcalendar_sel));
             binding.tvCalendar.setTextColor(Color.parseColor("#ffffff"));
+            binding.documentsIcon.setImageDrawable(getDrawable(R.drawable.docs_footer));
+            binding.tvDocuments.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.moreIcon.setImageDrawable(getDrawable(R.drawable.more));
+            binding.tvMore.setTextColor(Color.parseColor("#6BDFFF"));
         } else if (type == 3) {
-            binding.documentsIcon.setColorFilter(Color.argb(255, 255, 255, 255));
+            binding.homeIcon.setImageDrawable(getDrawable(R.drawable.home_alt));
+            binding.tvHome.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.calendarIcon.setImageDrawable(getDrawable(R.drawable.calendar_footer));
+            binding.tvCalendar.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.documentsIcon.setImageDrawable(getDrawable(R.drawable.ic_fdocs_sel));
             binding.tvDocuments.setTextColor(Color.parseColor("#ffffff"));
+            binding.moreIcon.setImageDrawable(getDrawable(R.drawable.more));
+            binding.tvMore.setTextColor(Color.parseColor("#6BDFFF"));
         } else if (type == 4) {
-            binding.moreIcon.setColorFilter(Color.argb(255, 255, 255, 255));
+            binding.homeIcon.setImageDrawable(getDrawable(R.drawable.home_alt));
+            binding.tvHome.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.calendarIcon.setImageDrawable(getDrawable(R.drawable.calendar_footer));
+            binding.tvCalendar.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.documentsIcon.setImageDrawable(getDrawable(R.drawable.docs_footer));
+            binding.tvDocuments.setTextColor(Color.parseColor("#6BDFFF"));
+            binding.moreIcon.setImageDrawable(getDrawable(R.drawable.ic_more_sel));
             binding.tvMore.setTextColor(Color.parseColor("#ffffff"));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (FlowOrganizer.getInstance().hasNoMoreBacks()) {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+            finishAffinity();
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -98,5 +157,30 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        try {
+            getLifecycle().addObserver(AppSingle.getInstance().getYouTubePlayerView());
+            AppSingle.getInstance().getYouTubePlayerView().addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    try {
+                        AppSingle.getInstance().setYouTubePlayerView(AppSingle.getInstance().getYouTubePlayerView());
+                        youTubePlayer.loadVideo(AppSingle.getInstance().getmVideosId(), 0);
+                    } catch (Exception e) {
+                    }
+                }
+            });
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setSelected(1);
     }
 }

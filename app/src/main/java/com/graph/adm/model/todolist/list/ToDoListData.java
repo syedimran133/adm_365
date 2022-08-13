@@ -12,7 +12,7 @@ public class ToDoListData {
     private String odataContext;
     @SerializedName("value")
     @Expose
-    private List<Value> value = null;
+    private List<ToDoListValue> value = null;
 
     public String getOdataContext() {
         return odataContext;
@@ -22,11 +22,11 @@ public class ToDoListData {
         this.odataContext = odataContext;
     }
 
-    public List<Value> getValue() {
+    public List<ToDoListValue> getValue() {
         return value;
     }
 
-    public void setValue(List<Value> value) {
+    public void setValue(List<ToDoListValue> value) {
         this.value = value;
     }
 

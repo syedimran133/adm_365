@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textView"
     android:layout_width="match_parent"
-    android:textColor="@color/black"
-    android:textStyle="bold"
-    android:padding="14dp"
+    android:textColor="#2d2d2d"
+    android:focusable="false"
+    android:fontFamily="@font/roboto"
+    android:padding="13dp"
     android:layout_height="wrap_content"
-    android:text="TextView" />
+    android:background="@drawable/spinner_bg" />

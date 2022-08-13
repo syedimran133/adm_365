@@ -1,62 +1,68 @@
 package com.graph.adm.Fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.graph.adm.Utils.FlowOrganizer;
-import com.graph.adm.databinding.LayoutWebviewBinding;
+import com.graph.adm.databinding.WebviewJadeAppBinding;
 
-public class FragmentChat  extends Fragment {
+public class FragmentEmail extends Fragment {
 
-    private LayoutWebviewBinding binding;
-    private WebView webView;
-
+    private WebviewJadeAppBinding binding;
+    private WebView mWebView;
+    private ProgressDialog progressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
-        binding = LayoutWebviewBinding.inflate(inflater, container, false);
-
-      /*  mWebView = binding.webview;
-        mWebView.loadUrl("https://google.com");
-
-        // Enable Javascript
+        binding = WebviewJadeAppBinding.inflate(inflater, container, false);
+        binding.title.setText("Email");
+        binding.header.setVisibility(View.GONE);
+        mWebView = binding.webview;
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.getSettings().setBuiltInZoomControls(true);
+        mWebView.getSettings().setUseWideViewPort(true);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
 
-        // Force links and redirects to open in the WebView instead of in a browser
-        mWebView.setWebViewClient(new WebViewClient());*/
-        webView = binding.webview;
-        webView.setInitialScale(1);
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.getSettings().setAllowFileAccess(true);
-        webView.getSettings().setPluginState(WebSettings.PluginState.ON);
-        webView.getSettings().setPluginState(WebSettings.PluginState.ON_DEMAND);
-        webView.setWebViewClient(new WebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int height = displaymetrics.heightPixels;
-        int width = displaymetrics.widthPixels;
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+            }
 
-        //Log.e(SimpleBillsConstants.SIMPLE_BILLS, width + "-" + height);
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                Toast.makeText(getContext(), "Error:" + description, Toast.LENGTH_SHORT).show();
 
-        String data_html = "<!DOCTYPE html><html> <head> <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"target-densitydpi=high-dpi\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" media=\"screen and (-webkit-device-pixel-ratio:1.5)\" href=\"hdpi.css\" /></head> <body style=\"background:white;margin:0 0 0 0; padding:0 0 0 0;\"> <iframe src=\"https://web.powerva.microsoft.com/webchat/bots/955ad312-0411-4e11-8ad9-f791b0259fef\" frameBorder=\"0\" width=\"100%\" height=\"660px\" ></iframe> </body> </html> ";
+            }
+        });
+        mWebView.loadUrl("https://outlook.office.com/mail/");
+        // Enable Javascript
 
-        webView.loadDataWithBaseURL("http://vimeo.com", data_html, "text/html", "UTF-8", null);
-        binding.back.setOnClickListener(new View.OnClickListener() {
+        binding.backWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlowOrganizer.getInstance().popUpBackTo(1);
+                FlowOrganizer.getInstance().add(new Dashboard(), false);
             }
         });
         return binding.getRoot();

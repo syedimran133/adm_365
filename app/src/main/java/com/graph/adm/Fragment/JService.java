@@ -9,39 +9,39 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.graph.adm.Adapter.AnnouncementAdapter;
-import com.graph.adm.Adapter.BlogsWhitePapersAdapter;
 import com.graph.adm.Adapter.DocumentsAdapter;
-import com.graph.adm.Utils.FlowOrganizer;
-import com.graph.adm.databinding.LayoutBlogsWhitePapersBinding;
 import com.graph.adm.databinding.LayoutDocumentsBinding;
+import com.graph.adm.databinding.LayoutSupportTabBinding;
+import com.graph.adm.model.support.Fields;
 
-public class Documents extends Fragment {
+public class JService extends Fragment {
 
-    private LayoutDocumentsBinding binding;
-    private DocumentsAdapter adpter;
+    private LayoutSupportTabBinding binding;
     public static final String ARG_PAGE = "ARG_PAGE";
+    private static Fields dataInner;
 
-    public static Documents newInstance(int page) {
+    public static JService newInstance(int page,Fields data) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
-        Documents fragment = new Documents();
+        JService fragment = new JService();
         fragment.setArguments(args);
+        dataInner=data;
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
-        binding = LayoutDocumentsBinding.inflate(inflater, container, false);
-        adpter = new DocumentsAdapter(getContext());
-        binding.title.setText("Documents");
-        binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rv.setAdapter(adpter);
+        binding = LayoutSupportTabBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.tvServiceTitle.setText(dataInner.getTitle());
+        binding.tvServiceDescription.setText(dataInner.getDescription());
+        binding.tvServiceEmail.setText("Email : "+dataInner.getPrimaryContactEmail());
+        binding.tvServiceMobile.setText("Phone : "+dataInner.getPrimaryContactPhone().toString());
+
     }
 
     @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,209 +8,19 @@
     android:clickable="true"
     android:orientation="vertical">
 
-    <LinearLayout
+
+
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#1b5287"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="45dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="5dp"
-            android:padding="3dp"
-            app:srcCompat="?attr/actionModeCloseDrawable"
-            app:tint="#ffffff" />
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text=" Jade Applications"
-            android:textColor="#ffffff" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/jade_app_bg"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="jService!"
-                        android:textAllCaps="true"
-                        android:textColor="#1b5287" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        app:srcCompat="@drawable/jservice" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/jade_app_bg"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="JOSS 2.0"
-                        android:textAllCaps="true"
-                        android:textColor="#1b5287" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        app:srcCompat="@drawable/joss" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/jade_app_bg"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Zing HR"
-                        android:textAllCaps="true"
-                        android:textColor="#1b5287" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        app:srcCompat="@drawable/zinghr" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/jade_app_bg"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Jade university"
-                        android:textAllCaps="true"
-                        android:textColor="#1b5287" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        app:srcCompat="@drawable/jadeuni" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/jade_app_bg"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="JBUZZ 365"
-                        android:textAllCaps="true"
-                        android:textColor="#1b5287" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        app:srcCompat="@drawable/joss" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="175dp"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/jade_app_bg"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextAppearance.AppCompat.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="mynexthire"
-                        android:textAllCaps="true"
-                        android:textColor="#1b5287" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        app:srcCompat="@drawable/mynexthire" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        android:layout_height="match_parent" />
+    <ImageView
+        android:id="@+id/back_chat"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/close"
+        app:tint="#ffffff" />
+</RelativeLayout>

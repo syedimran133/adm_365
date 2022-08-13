@@ -2,11 +2,9 @@
 package com.graph.adm.model.documents.myDocuments;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class MyDocumentsData {
 
     @SerializedName("@odata.context")
@@ -14,7 +12,7 @@ public class MyDocumentsData {
     private String odataContext;
     @SerializedName("value")
     @Expose
-    private List<Value> value = null;
+    private List<MyDocumentValue> value = null;
 
     public String getOdataContext() {
         return odataContext;
@@ -24,11 +22,11 @@ public class MyDocumentsData {
         this.odataContext = odataContext;
     }
 
-    public List<Value> getValue() {
+    public List<MyDocumentValue> getValue() {
         return value;
     }
 
-    public void setValue(List<Value> value) {
+    public void setValue(List<MyDocumentValue> value) {
         this.value = value;
     }
 

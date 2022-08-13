@@ -3,6 +3,7 @@ package com.graph.adm.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,18 +17,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.graph.adm.R;
+import com.graph.adm.model.documents.DocNavData;
 import com.graph.adm.model.photo.Value;
 
 import java.io.InputStream;
 import java.util.List;
 
-public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHolder> {
+public class DocNavAdapter extends RecyclerView.Adapter<DocNavAdapter.ViewHolder> {
 
     private Context context;
-    List<Value> data;
+    List<DocNavData> data;
     private IonItemSelect ionItemSelect;
 
-    public GallaryAdapter(Context context, List<Value> data) {
+    public DocNavAdapter(Context context, List<DocNavData> data) {
         this.context = context;
         this.data = data;
     }
@@ -39,14 +41,16 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallary_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doc_nav_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvName.setText(data.get(position).getName());
-        holder.tvNumber.setText(data.get(position).getFolder().getChildCount().toString()+" Photos");
+
+            holder.tvName.setText(data.get(position).getName());
+            if(position==(data.size()-1))
+                holder.tvName.setTextColor(Color.parseColor("#008ac2"));
 
     }
 
@@ -58,13 +62,10 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvName, tvNumber;
-        RelativeLayout gal_layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_alb_name);
-            tvNumber = itemView.findViewById(R.id.tv_alb_number);
-            gal_layout = itemView.findViewById(R.id.gal_layout);
+            tvName = itemView.findViewById(R.id.tn_name);
             itemView.setOnClickListener(this);
         }
 

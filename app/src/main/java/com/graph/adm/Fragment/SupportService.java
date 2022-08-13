@@ -1,36 +1,46 @@
 package com.graph.adm.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
-import com.graph.adm.Adapter.AnnouncementAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.graph.adm.Adapter.DocumentsAdapter;
+import com.graph.adm.Adapter.DocumentsFragmentPagerAdapter;
+import com.graph.adm.Adapter.SupportFragmentPagerAdapter;
+import com.graph.adm.Utils.AppSingle;
 import com.graph.adm.Utils.FlowOrganizer;
-import com.graph.adm.databinding.LayoutAnnouncementBinding;
+import com.graph.adm.Utils.MSGraphRequestWrapper;
+import com.graph.adm.Utils.Utils;
+import com.graph.adm.databinding.LayoutSupportServiceBinding;
+import com.graph.adm.model.documents.myDocuments.MyDocumentsData;
+import com.graph.adm.model.support.SupportServiceData;
 
-public class Announcement  extends Fragment {
+public class SupportService extends Fragment {
 
-    private LayoutAnnouncementBinding binding;
-    private AnnouncementAdapter adpter;
-
+    private LayoutSupportServiceBinding binding;
+//1.JService 2.Static 3.JOSS 4.ZingHR ,5.Home 6.Profile 7.Contact
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
-        binding = LayoutAnnouncementBinding.inflate(inflater, container, false);
-        adpter = new AnnouncementAdapter(getContext());
-        binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rv.setAdapter(adpter);
+        binding = LayoutSupportServiceBinding.inflate(inflater, container, false);
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FlowOrganizer.getInstance().popUpBackTo(1);
+                FlowOrganizer.getInstance().add(new Dashboard(), false);
             }
         });
+
+
+        getMyDocumentsCallBack();
         return binding.getRoot();
     }
 
@@ -42,5 +52,30 @@ public class Announcement  extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void getMyDocumentsCallBack() {
+        Utils.setProgressDialog(getContext());
+        MSGraphRequestWrapper.callGraphAPIUsingVolley(
+                getContext(),
+                "https://graph.microsoft.com/v1.0/sites/166e8b83-655e-4859-9811-329965d77859/lists/ebd8d60f-685d-4457-9f59-ad616b88baaa/items?$expand=fields($select=Title,Description,ServiceType,PrimaryContactEmail,PrimaryContactPhone)",
+                AppSingle.getInstance().getmAccessToken(),
+                response -> {
+                    Log.d("TAG", "Response: " + response.toString());
+                    SupportServiceData data = new Gson().fromJson(response.toString(), SupportServiceData.class);
+                    binding.tvTitle.setText(data.getValue().get(1).getFields().getTitle());
+                    binding.tvDescription.setText(data.getValue().get(1).getFields().getDescription());
+                    binding.tvStaticEmail.setText("Email : "+data.getValue().get(1).getFields().getPrimaryContactEmail());
+                    binding.tvStaticMobile.setText("Phone : "+data.getValue().get(1).getFields().getPrimaryContactPhone().toString());
+                    binding.viewpager.setAdapter(new SupportFragmentPagerAdapter(getChildFragmentManager(),
+                            getContext(),data.getValue()));
+                    TabLayout tabLayout = binding.slidingTabs2;
+                    tabLayout.setupWithViewPager(binding.viewpager);
+                    Utils.closeDilog();
+                },
+                error -> {
+                    Utils.closeDilog();
+                    Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                });
     }
 }

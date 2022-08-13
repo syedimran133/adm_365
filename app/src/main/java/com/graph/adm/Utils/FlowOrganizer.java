@@ -10,9 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.graph.adm.Activity.MainActivity;
 
-/**
- * Created by root on 12-12-2016.
- */
 
 public class FlowOrganizer {
 
@@ -112,7 +109,7 @@ public class FlowOrganizer {
         FragmentManager fm = ((MainActivity) AppSingle.getInstance().getActivity()).getSupportFragmentManager();
 
         int count = fm.getBackStackEntryCount();
-        if (count < 1)
+        if (count < 2)
             return true;
         else
             return false;

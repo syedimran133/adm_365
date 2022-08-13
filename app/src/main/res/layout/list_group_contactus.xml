@@ -21,14 +21,15 @@
         tools:ignore="RtlHardcoded">
         <TextView
             android:id="@+id/listTitle"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:fontFamily="@font/roboto"
+            android:textStyle="bold"
             android:paddingTop="17dp"
             android:paddingBottom="17dp"
             android:paddingLeft="15dp"
-            android:textSize="15sp"
             android:text="@string/help"
             android:textColor="#2d2d2d"
             tools:ignore="RtlSymmetry" />

@@ -1,26 +1,36 @@
 package com.graph.adm.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.graph.adm.R;
+import com.graph.adm.Utils.Utils;
+import com.graph.adm.model.documents.myDocuments.MyDocumentValue;
 
-public class BlogsWhitePapersAdapter extends RecyclerView.Adapter<BlogsWhitePapersAdapter.ViewHolder> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.ViewHolder> implements Filterable {
 
     private Context context;
-    //ArrayList<Value> data, dataFiltered;
+    List<MyDocumentValue> data,dataFiltered;
     private IonItemSelect ionItemSelect;
 
-    public BlogsWhitePapersAdapter(Context context) {
+    public DocumentsAdapter(Context context, List<MyDocumentValue> data) {
         this.context = context;
-        //this.data = data;
+        this.data = data;
+        this.dataFiltered = data;
     }
 
     public void registerOnItemClickListener(IonItemSelect ionItemSelect) {
@@ -30,47 +40,74 @@ public class BlogsWhitePapersAdapter extends RecyclerView.Adapter<BlogsWhitePape
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_blogs_white_papers_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.documents_items, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-/*        if (position == 0) {
-
-            holder.ivAnnouncement.setBackgroundResource(R.drawable.announcement_img);
-           // holder.tvSub.setText("Everything you Need to Know About Logic App. That is where Logic App comes handy.");
-           // holder.tvDetails.setText("Microsoft services always stays at the top because it innovates rapidly according to the changing times. Suppose there is a ticket that a customer had raised. Through Language Understanding Cognitive Service, the tone of the message could be understood. ");
-
-        } else if (position == 1) {
-            holder.ivAnnouncement.setBackgroundResource(R.drawable.announcement2);
-           // holder.tvSub.setText("Everything you Need to Know About Logic App. That is where Logic App comes handy.");
-           // holder.tvDetails.setText(" The issue could be tracked after creating an item on SharePoint. If the customer already exists in the database, you can add them to your salesforce CRM and sending an acknowledgment email to the customer. How do we connect all the apps? That is where Logic App comes handy.");
-
-        } else if (position == 2) {
-            holder.ivAnnouncement.setBackgroundResource(R.drawable.announcement3);
-           // holder.tvSub.setText("Everything you Need to Know About Logic App. That is where Logic App comes handy.");
-           // holder.tvDetails.setText("Microsoft services always stays at the top because it innovates rapidly according to the changing times. Suppose there is a ticket that a customer had raised. Through Language Understanding Cognitive Service, the tone of the message could be understood. ");
-
-        }*/
-
+        holder.tv_file_name.setText(data.get(position).getName());
+        holder.tv_user_nm.setText(data.get(position).getCreatedBy().getUser().getDisplayName());
+        holder.tv_cat.setText(data.get(position).getParentReference().getDriveType());
+        holder.tv_time_days.setText(Utils.getStringDateString(data.get(position).getFileSystemInfo().getCreatedDateTime(),"EEE, dd MMM YY"));
+        if (data.get(position).getMicrosoftGraphDownloadUrl() == null) {
+            holder.iv_type.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_folder));
+            holder.tv_file_name.setTypeface(holder.tv_file_name.getTypeface(), Typeface.NORMAL);
+        } else {
+            Typeface typeface = ResourcesCompat.getFont(context, R.font.roboto);
+            holder.tv_file_name.setTypeface(typeface);
+            holder.tv_file_name.setTypeface(holder.tv_file_name.getTypeface(), Typeface.BOLD);
+            holder.iv_type.setImageDrawable(context.getResources().getDrawable(Utils.getImf(data.get(position).getName().split("\\.")[1])));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 7;
+        return data.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    data = dataFiltered;
+                } else {
+                    ArrayList<MyDocumentValue> filteredList = new ArrayList<>();
+                    for (MyDocumentValue row : dataFiltered) {
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+                    data = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = data;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                data = (ArrayList<MyDocumentValue>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView ivAnnouncement;
-        TextView tvSub, tvDetails;
+        TextView tv_time_days, tv_cat, tv_user_nm, tv_file_name;
+        ImageView iv_type;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvSub = itemView.findViewById(R.id.tv_subject);
-            tvDetails = itemView.findViewById(R.id.tv_description);
-            ivAnnouncement = itemView.findViewById(R.id.iv_announcement);
+            tv_time_days = itemView.findViewById(R.id.tv_time_days);
+            tv_cat = itemView.findViewById(R.id.tv_cat);
+            tv_user_nm = itemView.findViewById(R.id.tv_user_nm);
+            tv_file_name = itemView.findViewById(R.id.tv_file_name);
+            iv_type = itemView.findViewById(R.id.iv_type);
             itemView.setOnClickListener(this);
         }
 
@@ -84,4 +121,6 @@ public class BlogsWhitePapersAdapter extends RecyclerView.Adapter<BlogsWhitePape
     public interface IonItemSelect {
         void onItemSelect(int position);
     }
+
+
 }

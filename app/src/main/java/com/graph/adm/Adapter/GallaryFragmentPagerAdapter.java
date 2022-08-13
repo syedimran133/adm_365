@@ -8,15 +8,17 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.graph.adm.Fragment.Documents;
 import com.graph.adm.Fragment.HRPolocies;
+import com.graph.adm.Fragment.PhotoGallery;
 import com.graph.adm.Fragment.SharedDocuments;
+import com.graph.adm.Fragment.VideoGallery;
 
-public class DocumentsFragmentPagerAdapter extends FragmentPagerAdapter {
+public class GallaryFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[]{"My Documents", "Shared Documents", "HR Polocies "};
+    final int PAGE_COUNT = 2;
+    private String tabTitles[] = new String[]{"Photo Gallery", "Video Gallery"};
     private Context context;
 
-    public DocumentsFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public GallaryFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -30,11 +32,9 @@ public class DocumentsFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fr = null;
         if (position == 0) {
-            fr= Documents.newInstance(position);
+            fr= PhotoGallery.newInstance(position);
         } else if (position == 1) {
-            fr= SharedDocuments.newInstance(position);
-        } else if (position == 2) {
-            fr= HRPolocies.newInstance(position);
+            fr= VideoGallery.newInstance(position);
         }
         return fr;
     }

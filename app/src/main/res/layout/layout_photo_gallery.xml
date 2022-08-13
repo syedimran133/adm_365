@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:clickable="true"
+    android:gravity="center"
     android:orientation="vertical">
 
 
@@ -14,5 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        tools:listitem="@layout/documents_items" />
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        tools:listitem="@layout/gallary_items" />
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="visible"
+        android:textColor="#2d2d2d"
+        android:text="No Data"/>
 </LinearLayout>

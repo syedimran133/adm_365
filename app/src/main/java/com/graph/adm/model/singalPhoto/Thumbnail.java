@@ -1,11 +1,9 @@
 
 package com.graph.adm.model.singalPhoto;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class Thumbnail {
 
     @SerializedName("id")

@@ -1,11 +1,9 @@
 
 package com.graph.adm.model.blogs;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class User__1 {
 
     @SerializedName("email")

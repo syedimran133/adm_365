@@ -1,23 +1,28 @@
-package com.journaldev.expandablelistview;
+package com.graph.adm.Adapter;
 
-import java.util.HashMap;
-import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
+import com.graph.adm.R;
+
+import java.util.HashMap;
+import java.util.List;
+
+public class HelpAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
 
-    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail) {
+    public HelpAdapter(Context context, List<String> expandableListTitle,
+                       HashMap<String, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -51,8 +56,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .size();
+
+            return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
+                    .size();
     }
 
     @Override
@@ -81,8 +87,19 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(listTitle);
+
+        ImageView img = (ImageView) convertView
+                .findViewById(R.id.img);
+        LinearLayout ll_main = (LinearLayout) convertView
+                .findViewById(R.id.ll_main);
+        if (isExpanded) {
+            img.setImageResource(R.drawable.chevronright_up);
+            ll_main.setBackground(context.getDrawable(R.drawable.help_bg));
+        } else {
+            img.setImageResource(R.drawable.chevronright_down);
+            ll_main.setBackground(context.getDrawable(R.drawable.help_bg_main));
+        }
         return convertView;
     }
 

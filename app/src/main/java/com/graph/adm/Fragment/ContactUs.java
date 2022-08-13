@@ -1,61 +1,51 @@
 package com.graph.adm.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
-import com.graph.adm.Activity.ViewPhoto;
-import com.graph.adm.Adapter.BUEventsAdapter;
-import com.graph.adm.Adapter.GallaryFragmentPagerAdapter;
-import com.graph.adm.Adapter.GallarySingelAdapter;
+import com.graph.adm.Adapter.ContactUsAdapter;
 import com.graph.adm.Adapter.HelpAdapter;
 import com.graph.adm.Utils.AppSingle;
-import com.graph.adm.Utils.ExpandableListDataPump;
 import com.graph.adm.Utils.FlowOrganizer;
-import com.graph.adm.Utils.GridSpacingItemDecoration;
 import com.graph.adm.Utils.MSGraphRequestWrapper;
 import com.graph.adm.Utils.Utils;
-import com.graph.adm.databinding.LayoutGallaryBinding;
 import com.graph.adm.databinding.LayoutHelpBinding;
-import com.graph.adm.model.buevents.BUEventsData;
+import com.graph.adm.model.contactus.ContactUsData;
+import com.graph.adm.model.contactus.Fields;
+import com.graph.adm.model.contactus.Value;
 import com.graph.adm.model.help.HelpData;
-import com.graph.adm.model.singalPhoto.SingalPhotoData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-public class Help extends Fragment {
+public class ContactUs extends Fragment {
 
     private LayoutHelpBinding binding;
-    HelpAdapter expandableListAdapter;
+    ContactUsAdapter expandableListAdapter;
     List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
+    HashMap<String, List<Fields>> expandableListDetail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = LayoutHelpBinding.inflate(inflater, container, false);
+        binding.title.setText("Contact US");
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FlowOrganizer.getInstance().popUpBackTo(1);
             }
         });
-        //expandableListDetail = ExpandableListDataPump.getData();
-        //expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         getHelpCallBack();
         return binding.getRoot();
     }
@@ -75,10 +65,10 @@ public class Help extends Fragment {
         Utils.setProgressDialog(getContext());
         MSGraphRequestWrapper.callGraphAPIUsingVolley(
                 getContext(),
-                "https://graph.microsoft.com/v1.0/sites/166e8b83-655e-4859-9811-329965d77859/lists/a693a26b-f111-4b0a-9e2d-11f6b5e545ab/items?expand=fields($select=id,Title,Description,IsActive)&$filter=fields/IsActive eq 'Yes'",
+                "https://graph.microsoft.com/v1.0/sites/166e8b83-655e-4859-9811-329965d77859/lists/aa2c972f-87b4-4bb1-be20-55debf616242/items?$expand=fields($select=id,Title,LocationCity,Address,IsActive)&filter=fields/IsActive eq 'Yes'",
                 AppSingle.getInstance().getmAccessToken(),
                 response -> {
-                    HelpData docData = new Gson().fromJson(response.toString(), HelpData.class);
+                    ContactUsData docData = new Gson().fromJson(response.toString(), ContactUsData.class);
                     if (docData.getValue().size() != 0) {
                         getData(docData);
                     } else {
@@ -101,15 +91,30 @@ public class Help extends Fragment {
                 });
     }
 
-    public void getData(HelpData docData){
-        expandableListDetail = new HashMap<String, List<String>>();
-        for (int i=0;i<docData.getValue().size();i++){
-            ArrayList a=new ArrayList<>();
-            a.add(docData.getValue().get(i).getFields().getDescription());
-            expandableListDetail.put(docData.getValue().get(i).getFields().getTitle(), a);
+    public void getData2(ContactUsData docData) {
+        getData2(docData);
+        expandableListDetail = new HashMap<String, List<Fields>>();
+        for (int i = 0; i < docData.getValue().size(); i++) {
+            ArrayList a = new ArrayList<>();
+            a.add(docData.getValue().get(i).getFields().getLocationCity() + "\n" + docData.getValue().get(i).getFields().getAddress());
+            expandableListDetail.put(docData.getValue().get(i).getFields().getId() + docData.getValue().get(i).getFields().getTitle(), a);
         }
-        expandableListTitle= new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new HelpAdapter(getContext(), expandableListTitle, expandableListDetail);
+        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new ContactUsAdapter(getContext(), expandableListTitle, expandableListDetail);
+        binding.expandableListView.setAdapter(expandableListAdapter);
+    }
+
+    public void getData(ContactUsData docData) {
+        List<Fields> students=new ArrayList<>();
+        for (int i = 0; i < docData.getValue().size(); i++) {
+           students.add(docData.getValue().get(i).getFields());
+        }
+        Map<String, List<Fields>> expandableListDetail
+                = students.stream()
+                .collect(Collectors.groupingBy(Fields::getTitle));
+
+        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new ContactUsAdapter(getContext(), expandableListTitle, expandableListDetail);
         binding.expandableListView.setAdapter(expandableListAdapter);
     }
 }

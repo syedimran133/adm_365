@@ -1,12 +1,10 @@
 
 package com.graph.adm.model.documents.myDocuments;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
-public class Value {
+public class MyDocumentValue {
 
     @SerializedName("createdDateTime")
     @Expose

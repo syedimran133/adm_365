@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="#ffffff"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="#ffffff"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +20,8 @@
             android:id="@+id/back"
             android:layout_width="45dp"
             android:layout_height="35dp"
-            android:padding="3dp"
             android:layout_marginLeft="5dp"
+            android:padding="3dp"
             app:srcCompat="?attr/actionModeCloseDrawable"
             app:tint="#ffffff" />
 
@@ -29,14 +30,122 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:textColor="#ffffff"
-            android:text="@string/bu_events" />
+            android:text="@string/feedback"
+            android:textColor="#ffffff" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        tools:listitem="@layout/layout_blogs_white_papers_items" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="We would love to hear your thoughts, suggestions,\nconcerns or problems with anything so we can improve"
+            android:textColor="#818181"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/uneditable"
+            android:fontFamily="@font/roboto"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:text="Grady Archie"
+            android:textColor="#2d2d2d" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/uneditable"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:text="GradyA@2m48yp@microsoft.com "
+            android:hint="#818181"
+            android:textColor="#2d2d2d" />
+
+        <EditText
+            android:id="@+id/ed_phone_numberk"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/roboto"
+            android:textSize="14sp"
+            android:gravity="left|center_vertical"
+            android:hint="Phone Number"
+            android:inputType="number"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#2d2d2d"
+            android:textColorHint="#818181"
+            tools:ignore="RtlHardcoded,TextFields" />
+
+        <EditText
+            android:id="@+id/ed_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_border"
+            android:fontFamily="@font/roboto"
+            android:gravity="left"
+            android:textSize="14sp"
+            android:hint="@string/your_feedback"
+            android:padding="10dp"
+            android:singleLine="false"
+            android:textColorHint="#818181"
+            android:textColor="#2d2d2d"
+            tools:ignore="RtlHardcoded" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="35dp">
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cancel_btn"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="10dp"
+                android:text="Cancel"
+                android:textColor="#1b5287" />
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_cancel"
+                tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/modify_btn"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="10dp"
+                android:text="Submit"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

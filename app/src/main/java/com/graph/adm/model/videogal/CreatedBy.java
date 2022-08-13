@@ -1,11 +1,10 @@
 
-package com.graph.adm.model.video;
+package com.graph.adm.model.videogal;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.graph.adm.model.video.User;
 
-@Generated("jsonschema2pojo")
 public class CreatedBy {
 
     @SerializedName("user")

@@ -2,11 +2,9 @@
 package com.graph.adm.model.video;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class VideosData {
 
     @SerializedName("@odata.context")
@@ -17,7 +15,7 @@ public class VideosData {
     private String odataNextLink;
     @SerializedName("value")
     @Expose
-    private List<Value> value = null;
+    private List<VideosValue> value = null;
 
     public String getOdataContext() {
         return odataContext;
@@ -35,11 +33,11 @@ public class VideosData {
         this.odataNextLink = odataNextLink;
     }
 
-    public List<Value> getValue() {
+    public List<VideosValue> getValue() {
         return value;
     }
 
-    public void setValue(List<Value> value) {
+    public void setValue(List<VideosValue> value) {
         this.value = value;
     }
 

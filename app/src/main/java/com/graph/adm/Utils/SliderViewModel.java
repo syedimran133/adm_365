@@ -1,4 +1,4 @@
-package com.imran.scrollviewpager;
+package com.graph.adm.Utils;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

@@ -8,37 +8,34 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.graph.adm.Adapter.GallaryAdapter;
 import com.graph.adm.Adapter.GallarySingelAdapter;
+import com.graph.adm.R;
+import com.graph.adm.Utils.DownloadImageTask;
 import com.graph.adm.Utils.FlowOrganizer;
-import com.graph.adm.databinding.LayoutPhotoGalleryBinding;
 import com.graph.adm.databinding.LayoutSingelphotoBinding;
+import com.graph.adm.databinding.LayoutViewPhotoBinding;
 
-public class PhotoSingel extends Fragment {
+public class ViewPhotoSingel extends Fragment {
 
-    private LayoutSingelphotoBinding binding;
-    private GallarySingelAdapter adpter;
-
+    private LayoutViewPhotoBinding binding;
+    String fileName = "",fileUrl="";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = LayoutSingelphotoBinding.inflate(inflater, container, false);
-        adpter = new GallarySingelAdapter(getContext());
-        binding.rv.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        binding.rv.setAdapter(adpter);
-        adpter.registerOnItemClickListener(new GallarySingelAdapter.IonItemSelect() {
-            @Override
-            public void onItemSelect(int position) {
-                FlowOrganizer.getInstance().add(new PhotoSingel(), true);
-            }
-        });
-        binding.back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlowOrganizer.getInstance().popUpBackTo(1);
-            }
-        });
+        binding = LayoutViewPhotoBinding.inflate(inflater, container, false);
+        Bundle bundle = this.getArguments();
+
+        if (bundle != null) {
+            fileName = getArguments().getString("FileName");
+            fileUrl = getArguments().getString("FileURL");
+        }
+        binding.tvTitle.setText(fileName);
+        if (fileUrl != null) {
+            new DownloadImageTask(getContext(),binding.inPhoto).execute(fileUrl);
+        } else {
+            binding.inPhoto.setImageDrawable(getContext().getResources().getDrawable(R.drawable.jade_default));
+        }
+
         return binding.getRoot();
     }
 

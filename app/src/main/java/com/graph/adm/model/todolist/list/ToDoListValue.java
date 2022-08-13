@@ -4,7 +4,7 @@ package com.graph.adm.model.todolist.list;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Value {
+public class ToDoListValue {
 
     @SerializedName("@odata.etag")
     @Expose

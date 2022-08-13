@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,58 +14,130 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="@string/modify_task"
+        android:text="@string/add_new_task"
         android:textColor="#1b5287"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
-        android:id="@+id/ed_note"
+        android:id="@+id/ed_task_name"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
-        android:hint="@string/note"
-        android:padding="10dp"
+        android:hint="@string/task_name"
+        android:padding="11dp"
+        android:fontFamily="@font/roboto"
+        android:textColorHint="#818181"
+        android:textColor="#2d2d2d"
+        android:singleLine="false"
+        android:textSize="14sp"
+        android:background="@drawable/edit_text_border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+    <EditText
+        android:id="@+id/ed_task_in_detail"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/task_in_detail"
+        android:textColorHint="#818181"
+        android:padding="11dp"
+        android:gravity="left"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto"
         android:textColor="#2d2d2d"
         android:singleLine="false"
         android:background="@drawable/edit_text_border"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-
-    <TextView
-        android:id="@+id/tv_status"
+        app:layout_constraintTop_toBottomOf="@+id/ed_task_name" />
+    <LinearLayout
+        android:id="@+id/tv_task_assigned_to"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
+        android:gravity="center_vertical"
+        android:paddingStart="9dp"
         android:background="@drawable/edit_text_border"
-        android:hint="@string/done"
-        android:padding="10dp"
-        android:textColor="#2d2d2d"
-        app:drawableRightCompat="@drawable/chevron_right"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ed_note"
-        app:layout_constraintTop_toBottomOf="@+id/ed_note" />
+        app:layout_constraintStart_toStartOf="@+id/ed_task_in_detail"
+        app:layout_constraintTop_toBottomOf="@+id/ed_task_in_detail"
+        android:orientation="horizontal"
+        tools:ignore="RtlSymmetry">
 
-    <TextView
+        <Spinner
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/status" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/tv_task_prority"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center_vertical"
+        android:paddingStart="9dp"
+        android:background="@drawable/edit_text_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_task_assigned_to"
+        app:layout_constraintTop_toBottomOf="@+id/tv_task_assigned_to"
+        android:orientation="horizontal"
+        tools:ignore="RtlSymmetry">
+
+        <Spinner
+            android:id="@+id/task_prority"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/status" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_task_category"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center_vertical"
+        android:paddingStart="9dp"
+        android:background="@drawable/edit_text_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_task_prority"
+        app:layout_constraintTop_toBottomOf="@+id/tv_task_prority"
+        android:orientation="horizontal"
+        tools:ignore="RtlSymmetry">
+
+        <Spinner
+            android:id="@+id/task_category"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/status" />
+    </LinearLayout>
+    <EditText
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/edit_text_border"
-        android:hint="24-06-2022"
+        android:hint="@string/due_date"
+        android:focusable="false"
         android:textColor="#2d2d2d"
-        android:padding="10dp"
+        android:textColorHint="#818181"
+        android:padding="15dp"
+        android:textSize="14sp"
         app:drawableRightCompat="@drawable/date_picker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_status"
-        app:layout_constraintTop_toBottomOf="@+id/tv_status" />
+        app:layout_constraintStart_toStartOf="@+id/ll_task_category"
+        app:layout_constraintTop_toBottomOf="@+id/ll_task_category" />
 
     <TextView
         android:id="@+id/btn_cancel"
@@ -73,29 +146,28 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/cancel_btn"
         android:fontFamily="@font/roboto_bold"
-        android:paddingLeft="20dp"
+        android:paddingLeft="30dp"
         android:paddingTop="10dp"
-        android:paddingRight="20dp"
+        android:paddingRight="30dp"
         android:paddingBottom="10dp"
-        android:layout_marginBottom="25dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textColor="#1b5287"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/btn_assign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/modify_btn"
         android:fontFamily="@font/roboto_bold"
-        android:paddingLeft="20dp"
+        android:paddingLeft="30dp"
         android:paddingTop="10dp"
-        android:paddingRight="20dp"
+        android:paddingRight="30dp"
         android:paddingBottom="10dp"
-        android:text="Modify"
+        android:text="@string/assign"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
         app:layout_constraintEnd_toEndOf="parent"

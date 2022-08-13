@@ -1,12 +1,13 @@
 
-package com.graph.adm.model.video;
+package com.graph.adm.model.videogal;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.graph.adm.model.video.CreatedBy;
+import com.graph.adm.model.video.LastModifiedBy;
+import com.graph.adm.model.video.ParentReference;
 
-@Generated("jsonschema2pojo")
-public class Value {
+public class VideosGalValue {
 
     @SerializedName("createdDateTime")
     @Expose
@@ -34,13 +35,13 @@ public class Value {
     private Integer size;
     @SerializedName("createdBy")
     @Expose
-    private CreatedBy createdBy;
+    private com.graph.adm.model.video.CreatedBy createdBy;
     @SerializedName("lastModifiedBy")
     @Expose
-    private LastModifiedBy lastModifiedBy;
+    private com.graph.adm.model.video.LastModifiedBy lastModifiedBy;
     @SerializedName("parentReference")
     @Expose
-    private ParentReference parentReference;
+    private com.graph.adm.model.video.ParentReference parentReference;
     @SerializedName("fileSystemInfo")
     @Expose
     private FileSystemInfo fileSystemInfo;
@@ -112,7 +113,7 @@ public class Value {
         this.size = size;
     }
 
-    public CreatedBy getCreatedBy() {
+    public com.graph.adm.model.video.CreatedBy getCreatedBy() {
         return createdBy;
     }
 
@@ -120,7 +121,7 @@ public class Value {
         this.createdBy = createdBy;
     }
 
-    public LastModifiedBy getLastModifiedBy() {
+    public com.graph.adm.model.video.LastModifiedBy getLastModifiedBy() {
         return lastModifiedBy;
     }
 
@@ -128,7 +129,7 @@ public class Value {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public ParentReference getParentReference() {
+    public com.graph.adm.model.video.ParentReference getParentReference() {
         return parentReference;
     }
 

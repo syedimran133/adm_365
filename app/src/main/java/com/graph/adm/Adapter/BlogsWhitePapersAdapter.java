@@ -1,5 +1,6 @@
 package com.graph.adm.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.graph.adm.R;
+import com.graph.adm.Utils.Utils;
+import com.graph.adm.model.blogs.Value;
 
-public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.ViewHolder> {
+import java.util.List;
+
+public class BlogsWhitePapersAdapter extends RecyclerView.Adapter<BlogsWhitePapersAdapter.ViewHolder> {
 
     private Context context;
-    //ArrayList<Value> data, dataFiltered;
+    List<Value> data;
     private IonItemSelect ionItemSelect;
 
-    public AnnouncementAdapter(Context context) {
+    public BlogsWhitePapersAdapter(Context context,List<Value> data) {
         this.context = context;
-        //this.data = data;
+        this.data = data;
     }
 
     public void registerOnItemClickListener(IonItemSelect ionItemSelect) {
@@ -30,48 +35,36 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.announcement_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_blogs_white_papers_items, parent, false);
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        if (position == 0) {
-
-            holder.ivAnnouncement.setBackgroundResource(R.drawable.announcement_img);
-           // holder.tvSub.setText("Everything you Need to Know About Logic App. That is where Logic App comes handy.");
-           // holder.tvDetails.setText("Microsoft services always stays at the top because it innovates rapidly according to the changing times. Suppose there is a ticket that a customer had raised. Through Language Understanding Cognitive Service, the tone of the message could be understood. ");
-
-        } else if (position == 1) {
-            holder.ivAnnouncement.setBackgroundResource(R.drawable.announcement2);
-           // holder.tvSub.setText("Everything you Need to Know About Logic App. That is where Logic App comes handy.");
-           // holder.tvDetails.setText(" The issue could be tracked after creating an item on SharePoint. If the customer already exists in the database, you can add them to your salesforce CRM and sending an acknowledgment email to the customer. How do we connect all the apps? That is where Logic App comes handy.");
-
-        } else if (position == 2) {
-            holder.ivAnnouncement.setBackgroundResource(R.drawable.announcement3);
-           // holder.tvSub.setText("Everything you Need to Know About Logic App. That is where Logic App comes handy.");
-           // holder.tvDetails.setText("Microsoft services always stays at the top because it innovates rapidly according to the changing times. Suppose there is a ticket that a customer had raised. Through Language Understanding Cognitive Service, the tone of the message could be understood. ");
-
-        }
-
+        holder.tvTitle.setText(data.get(position).getFields().getTitle());
+        holder.tvDecs.setText(data.get(position).getFields().getBlogsDescription());
+        holder.tvUser.setText(data.get(position).getFields().getPublishedBy());
+        //holder.tvTime.setText(Utils.printDifference(Utils.getStringToDate(data.get(position).getFields().getPublishedOn()))+" ago");
+        holder.tvTime.setText(Utils.getStringDateString(data.get(position).getFields().getPublishedOn(), "EEE, dd MMM YY"));
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return data.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView ivAnnouncement;
-        TextView tvSub, tvDetails;
+        TextView tvTitle, tvDecs,tvUser,tvTime,btn_download;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvSub = itemView.findViewById(R.id.tv_subject);
-            tvDetails = itemView.findViewById(R.id.tv_description);
-            ivAnnouncement = itemView.findViewById(R.id.iv_announcement);
-            itemView.setOnClickListener(this);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvDecs = itemView.findViewById(R.id.tv_decs);
+            tvUser = itemView.findViewById(R.id.tv_user_name);
+            tvTime = itemView.findViewById(R.id.tv_time);
+            btn_download = itemView.findViewById(R.id.btn_download);
+            btn_download.setOnClickListener(this);
         }
 
         @Override

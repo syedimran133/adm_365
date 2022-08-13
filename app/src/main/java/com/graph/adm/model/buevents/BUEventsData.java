@@ -2,11 +2,9 @@
 package com.graph.adm.model.buevents;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class BUEventsData {
 
     @SerializedName("@odata.context")
@@ -14,7 +12,7 @@ public class BUEventsData {
     private String odataContext;
     @SerializedName("value")
     @Expose
-    private List<Value> value = null;
+    private List<BUEventValue> value = null;
 
     public String getOdataContext() {
         return odataContext;
@@ -24,11 +22,11 @@ public class BUEventsData {
         this.odataContext = odataContext;
     }
 
-    public List<Value> getValue() {
+    public List<BUEventValue> getValue() {
         return value;
     }
 
-    public void setValue(List<Value> value) {
+    public void setValue(List<BUEventValue> value) {
         this.value = value;
     }
 

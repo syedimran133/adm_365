@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.graph.adm.Adapter.DocumentsAdapter;
-import com.graph.adm.databinding.LayoutDocumentsBinding;
 import com.graph.adm.databinding.LayoutSupportTabBinding;
+import com.graph.adm.model.support.Fields;
 
-public class JService extends Fragment {
+public class Contact extends Fragment {
 
     private LayoutSupportTabBinding binding;
     public static final String ARG_PAGE = "ARG_PAGE";
+    private static Fields dataInner;
 
-    public static JService newInstance(int page) {
+    public static Contact newInstance(int page,Fields data) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
-        JService fragment = new JService();
+        Contact fragment = new Contact();
         fragment.setArguments(args);
+        dataInner=data;
         return fragment;
     }
 
@@ -34,6 +34,10 @@ public class JService extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.tvServiceTitle.setText(dataInner.getTitle());
+        binding.tvServiceDescription.setText(dataInner.getDescription());
+        binding.tvServiceEmail.setText("Email : "+dataInner.getPrimaryContactEmail());
+        binding.tvServiceMobile.setText("Phone : "+dataInner.getPrimaryContactPhone().toString());
     }
 
     @Override

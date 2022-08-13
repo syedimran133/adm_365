@@ -10,21 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.graph.adm.Adapter.BUEventsAdapter;
-import com.graph.adm.Adapter.MyCalendarAdapter;
 import com.graph.adm.Utils.FlowOrganizer;
 import com.graph.adm.databinding.LayoutBuEventsBinding;
-import com.graph.adm.databinding.LayoutCalendarBinding;
+import com.graph.adm.databinding.LayoutFeedbackBinding;
 
-public class BUEvents extends Fragment {
+public class Feedback extends Fragment {
 
-    private LayoutBuEventsBinding binding;
+    private LayoutFeedbackBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
-        binding = LayoutBuEventsBinding.inflate(inflater, container, false);
-        BUEventsAdapter adpter = new BUEventsAdapter(getContext());
-        binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rv.setAdapter(adpter);
+        binding = LayoutFeedbackBinding.inflate(inflater, container, false);
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

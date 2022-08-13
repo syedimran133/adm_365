@@ -2,22 +2,20 @@
 package com.graph.adm.model.email;
 
 import java.util.List;
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class EmailData {
 
     @SerializedName("value")
     @Expose
-    private List<Value> value = null;
+    private List<EmailValue> value = null;
 
-    public List<Value> getValue() {
+    public List<EmailValue> getValue() {
         return value;
     }
 
-    public void setValue(List<Value> value) {
+    public void setValue(List<EmailValue> value) {
         this.value = value;
     }
 

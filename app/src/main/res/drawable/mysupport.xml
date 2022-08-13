@@ -13,11 +13,11 @@
     <item>
         <shape android:shape="rectangle" android:padding="10dp">
             <corners
-                android:bottomRightRadius="3dp"
-                android:bottomLeftRadius="3dp"
-                android:topLeftRadius="3dp"
-                android:topRightRadius="3dp"/>
+                android:bottomRightRadius="0dp"
+                android:bottomLeftRadius="0dp"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="0dp"/>
         </shape>
     </item>
-    <item android:drawable="@drawable/ao_card" />
+    <item android:drawable="@drawable/support_service_bg" />
 </layer-list>

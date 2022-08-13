@@ -1,36 +1,29 @@
 package com.graph.adm.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.graph.adm.R;
-import com.graph.adm.model.announcement.Value;
+import com.graph.adm.Utils.DownloadImageTask;
+import com.graph.adm.model.singalPhoto.Value;
 
-import java.io.InputStream;
 import java.util.List;
 
-public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHolder> {
+public class GallarySingelAdapter extends RecyclerView.Adapter<GallarySingelAdapter.ViewHolder> {
 
     private Context context;
     List<Value> data;
     private IonItemSelect ionItemSelect;
 
-    public GallaryAdapter(Context context/*, List<Value> data*/) {
+    public GallarySingelAdapter(Context context, List<Value> data) {
         this.context = context;
-        //this.data = data;
+        this.data = data;
     }
 
     public void registerOnItemClickListener(IonItemSelect ionItemSelect) {
@@ -40,33 +33,32 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallary_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallary_items_singel, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //holder.tvName.setText(data.get(position).getFields().getTitle());
-        //holder.tvNumber.setText(data.get(position).getFields().getDescription().trim().replaceAll(" +", " "));
 
+        String imgData = data.get(position).getThumbnails().get(0).getSmall().getUrl();
+        if (imgData != null) {
+            new DownloadImageTask(context,holder.img_bg).execute(imgData);
+        } else {
+            holder.img_bg.setImageDrawable(context.getResources().getDrawable(R.drawable.jade_default));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return data.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView img_bg;
-        TextView tvName, tvNumber;
-        RelativeLayout gal_layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_alb_name);
-            tvNumber = itemView.findViewById(R.id.tv_alb_number);
-            img_bg = itemView.findViewById(R.id.img_bg);
-            gal_layout = itemView.findViewById(R.id.gal_layout);
+            img_bg = itemView.findViewById(R.id.roundedImageView);
             itemView.setOnClickListener(this);
         }
 
@@ -79,34 +71,5 @@ public class GallaryAdapter extends RecyclerView.Adapter<GallaryAdapter.ViewHold
 
     public interface IonItemSelect {
         void onItemSelect(int position);
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            if (result != null)
-                bmImage.setImageBitmap(result);
-            else
-                bmImage.setImageDrawable(context.getResources().getDrawable(R.drawable.jade_default));
-        }
     }
 }

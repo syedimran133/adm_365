@@ -4,7 +4,7 @@ package com.graph.adm.model.documents.HrPolocies;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Value {
+public class HrValue {
 
     @SerializedName("createdDateTime")
     @Expose

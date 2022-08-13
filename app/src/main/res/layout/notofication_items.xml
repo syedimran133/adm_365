@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/li_bg"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
@@ -10,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -25,7 +28,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="15dp"
-                app:srcCompat="@drawable/bwp_icon" />
+                app:srcCompat="@drawable/notifcation_img" />
         </LinearLayout>
 
         <LinearLayout
@@ -35,28 +38,33 @@
 
 
             <TextView
+                android:id="@+id/note_title"
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="@font/roboto"
-                android:textSize="16dp"
+                android:paddingEnd="10dp"
                 android:text="8 Key things that determine State of Cloud"
-                android:textColor="#1b5287" />
+                android:textColor="#1b5287"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:fontFamily="@font/roboto"
+                android:id="@+id/note_disc"
                 android:justificationMode="inter_word"
+                android:paddingEnd="10dp"
                 android:text="Cloud computing has grown from a novel concept to the go-to model for many organizations. Here's what you need to know about the cloud industry."
-                android:textColor="#2d2d2d" />
+                android:textColor="#2d2d2d"
+                tools:ignore="RtlSymmetry" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -67,21 +75,52 @@
                     app:srcCompat="@drawable/person_fill" />
 
                 <TextView
+                    android:id="@+id/note_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:layout_marginLeft="10dp"
+                    android:textSize="11sp"
+                    android:layout_marginStart="10dp"
                     android:text="Rahul Chauhan"
                     android:textColor="#818181" />
 
-                <TextView
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    app:srcCompat="@drawable/clock_fill" />
+                <TextView
+                    android:id="@+id/note_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:gravity="right"
-                    android:text="24 days ago"
+                    android:layout_marginStart="10dp"
+                    android:textSize="11sp"
+                    android:text="30 Mins"
                     android:textColor="#818181" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    tools:ignore="RtlHardcoded">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        app:srcCompat="@drawable/flag_unread" />
+
+                    <TextView
+                        android:id="@+id/tv_isread"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="11sp"
+                        android:text="Read"
+                        android:textColor="#818181" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -1,4 +1,4 @@
-package com.imran.scrollviewpager;
+package com.graph.adm.Utils;
 
 import android.content.Context;
 import android.os.Handler;

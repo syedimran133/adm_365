@@ -1,11 +1,9 @@
 
-package com.graph.adm.model.video;
+package com.graph.adm.model.videogal;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class Folder {
 
     @SerializedName("childCount")

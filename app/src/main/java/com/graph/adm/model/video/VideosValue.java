@@ -1,12 +1,10 @@
 
 package com.graph.adm.model.video;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
-public class Value {
+public class VideosValue {
 
     @SerializedName("@odata.etag")
     @Expose
