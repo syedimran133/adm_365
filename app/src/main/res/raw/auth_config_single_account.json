@@ -1,0 +1,16 @@
+{
+  "client_id": "ee2a6081-d2db-4ddd-966b-1c0f9ab5c53a",
+  "authorization_user_agent": "DEFAULT",
+  "redirect_uri": "msauth://com.graph.adm/9%2Boe%2BTkmfDmWRcih4J86XNZf8n8%3D",
+  "broker_redirect_uri_registered" : true,
+  "account_mode" : "SINGLE",
+  "authorities": [
+    {
+      "type": "AAD",
+      "audience": {
+        "type": "AzureADMultipleOrgs",
+        "tenant_id": "organizations"
+      }
+    }
+  ]
+}

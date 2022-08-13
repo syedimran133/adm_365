@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Graph</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="current_tasks">Current Tasks</string>
+    <string name="to_do_list">To Do List</string>
+    <string name="add">Add</string>
+    <string name="filters">Filters</string>
+    <string name="status">Status :</string>
+    <string name="mdue_date">Due Date :</string>
+    <string name="modify_task">Modify Task</string>
+    <string name="note">Note</string>
+    <string name="done">Done</string>
+    <string name="add_new_task">Add new Task</string>
+    <string name="task_name">Task name</string>
+    <string name="task_in_detail">Task in detail</string>
+    <string name="task_assigned_to">Task Assigned to</string>
+    <string name="due_date">Due date</string>
+    <string name="assign">Assign</string>
+    <string name="cancel">Cancel</string>
+    <string name="modify">Modify</string>
+    <string name="notifications">Notifications</string>
+    <string name="my_calendar">My Calendar</string>
+    <string name="bu_events">BU Events</string>
+    <string name="your_feedback">Your Feedback</string>
+    <string name="feedback">Feedback</string>
+    <string name="your_report">Your Report</string>
+    <string name="report_abuse">Report Abuse</string>
+    <string name="abuse_type">Abuse type</string>
+    <string name="no_attachment">no attachment</string>
+    <string name="browse">Browse</string>
+    <string name="dd_mm_yyyy">dd-mm-yyyy</string>
+
+    <string-array name="status">
+        <item>Not Started</item>
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Blocked</item>
+    </string-array>
+    <string-array name="task_assigned_to">
+        <item>Person1</item>
+        <item>Person2</item>
+        <item>Person3</item>
+        <item>Person4</item>
+        <item>Person5</item>
+    </string-array>
+</resources>
