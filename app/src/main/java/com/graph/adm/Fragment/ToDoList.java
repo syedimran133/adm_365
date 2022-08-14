@@ -44,25 +44,19 @@ public class ToDoList extends Fragment {
 
     private LayoutToDoListBinding binding;
     private ToDoListAdapter adpter;
-    ToDoList frag;
+    private ToDoList frag;
     private Progressdata progressdata;
-private String ids="";
+    private String ids="";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = LayoutToDoListBinding.inflate(inflater, container, false);
         frag = this;
-        binding.back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FlowOrganizer.getInstance().add(new Dashboard(), false);
-            }
-        });
-        binding.btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddNewTaskBottomsheetFragment addNewTaskBottomsheetFragment = new AddNewTaskBottomsheetFragment();
-                addNewTaskBottomsheetFragment.show(getParentFragmentManager(), addNewTaskBottomsheetFragment.getTag());
-            }
+        binding.back.setOnClickListener(v -> FlowOrganizer.getInstance().add(new Dashboard(), false));
+        binding.btnAdd.setOnClickListener(v -> {
+            AddNewTaskBottomsheetFragment addNewTaskBottomsheetFragment = new AddNewTaskBottomsheetFragment();
+            addNewTaskBottomsheetFragment.setvalue(getContext(),frag,ids);
+            addNewTaskBottomsheetFragment.show(getParentFragmentManager(), addNewTaskBottomsheetFragment.getTag());
         });
         binding.btnFilters.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(getContext(), binding.btnFilters);

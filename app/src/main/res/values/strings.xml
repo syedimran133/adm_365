@@ -59,6 +59,11 @@
     <string name="working_on">Working on</string>
     <string name="completed">Completed</string>
     <string name="hold">Hold</string>
+    <string name="please_select_date">Please select due date</string>
+    <string name="please_select_category">Please select category</string>
+    <string name="please_select_prority">Please select prority</string>
+    <string name="task_detail_are_empty">Task detail are empty</string>
+    <string name="task_name_are_empty">Task name are empty</string>
 
     <string-array name="status">
         <item>Not Started</item>

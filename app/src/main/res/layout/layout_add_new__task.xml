@@ -35,6 +35,18 @@
         android:background="@drawable/edit_text_border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+    <TextView
+        android:id="@+id/error_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/task_name_are_empty"
+        android:textColor="#f32343"
+        android:textSize="8sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_task_name" />
     <EditText
         android:id="@+id/ed_task_in_detail"
         android:layout_width="match_parent"
@@ -53,6 +65,18 @@
         android:background="@drawable/edit_text_border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_task_name" />
+    <TextView
+        android:id="@+id/error_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/task_detail_are_empty"
+        android:textColor="#f32343"
+        android:textSize="8sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_task_in_detail" />
     <LinearLayout
         android:id="@+id/tv_task_assigned_to"
         android:visibility="gone"
@@ -77,7 +101,7 @@
             android:prompt="@string/status" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/tv_task_prority"
+        android:id="@+id/ll_task_prority"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
@@ -98,6 +122,18 @@
             android:layout_height="wrap_content"
             android:prompt="@string/status" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/error_prority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/please_select_prority"
+        android:textColor="#f32343"
+        android:textSize="8sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_task_prority" />
     <LinearLayout
         android:id="@+id/ll_task_category"
         android:layout_width="match_parent"
@@ -120,6 +156,20 @@
             android:layout_height="wrap_content"
             android:prompt="@string/status" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/error_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/please_select_category"
+        android:textColor="#f32343"
+        android:textSize="8sp"
+        android:visibility="invisible"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_task_category" />
     <EditText
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
@@ -140,10 +190,24 @@
         app:layout_constraintTop_toBottomOf="@+id/ll_task_category" />
 
     <TextView
+        android:id="@+id/error_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/please_select_date"
+        android:textColor="#f32343"
+        android:textSize="8sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+    <TextView
         android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="52dp"
         android:background="@drawable/cancel_btn"
         android:fontFamily="@font/roboto_bold"
         android:paddingLeft="30dp"
@@ -153,7 +217,7 @@
         android:text="@string/cancel"
         android:textColor="#1b5287"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
