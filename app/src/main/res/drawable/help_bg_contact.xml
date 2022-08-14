@@ -20,7 +20,7 @@
                 android:topRightRadius="10dip"
                 android:bottomLeftRadius="0dip"
                 android:bottomRightRadius="0dip" />
-            <solid android:color="#D3EEF7" />
+            <solid android:color="#ffffff" />
         </shape>
     </item>
 </layer-list>

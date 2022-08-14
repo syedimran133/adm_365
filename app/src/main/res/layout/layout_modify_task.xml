@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_status"
         app:layout_constraintTop_toBottomOf="@+id/tv_status" />
-    <TextView
+    <EditText
         android:id="@+id/ed_note"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -109,7 +109,7 @@
         android:fontFamily="@font/roboto"
         android:textColor="#2d2d2d"
         android:singleLine="false"
-        android:background="@drawable/uneditable"
+        android:background="@drawable/edit_text_border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date"
         tools:ignore="RtlHardcoded" />

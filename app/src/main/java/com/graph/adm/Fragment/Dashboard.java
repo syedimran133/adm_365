@@ -45,6 +45,7 @@ public class Dashboard extends Fragment {
     private AutoScrollPagerAdapter autoScrollPagerAdapter = null;
     private YouTubePlayerView youTubePlayerView = null;
     public static List<CertificationsDataValue> list;
+    private EmailData docData = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,7 +130,11 @@ public class Dashboard extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getUserCallBack();
+        if (docData != null) {
+            //
+        } else {
+            getUserCallBack();
+        }
 
         play(AppSingle.getInstance().getmVideosId());
     }
@@ -170,6 +175,7 @@ public class Dashboard extends Fragment {
     }
 
     private void getUserCallBack() {
+        Utils.setProgressDialog(getContext());
         MSGraphRequestWrapper.callGraphAPIUsingVolley(
                 getContext(),
                 "https://graph.microsoft.com/v1.0/me",
@@ -188,7 +194,7 @@ public class Dashboard extends Fragment {
                 },
                 error -> {
                     Log.d("TAG", "Error: " + error.toString());
-                    //displayError(error);
+                    Utils.closeDilog();
                 });
     }
 
@@ -200,7 +206,6 @@ public class Dashboard extends Fragment {
                     AppSingle.getInstance().getmAccessToken(),
                     response -> {
                         /* Successfully called graph, process data and send to UI */
-                        getUnReadEmailCountCallBack();
                         Log.d("TAG", "Response: " + response.toString());
                         CertificationsData userData = new Gson().fromJson(response.toString(), CertificationsData.class);
                         if (userData.getValue().size() != 0) {
@@ -208,16 +213,17 @@ public class Dashboard extends Fragment {
                                 binding.slider.setVisibility(View.VISIBLE);
                                 list = userData.getValue();
                                 AppSingle.getInstance().setmSlideData(response.toString());
-                                runSlider(list.size());
                             } catch (Exception e) {
                             }
                         } else {
                             binding.slider.setVisibility(View.GONE);
                         }
+                        getUnReadEmailCountCallBack();
                     },
                     error -> {
                         binding.slider.setVisibility(View.GONE);
                         Log.d("TAG", "Error: " + error.toString());
+                        Utils.closeDilog();
                     });
         } catch (Exception e) {
         }
@@ -238,7 +244,7 @@ public class Dashboard extends Fragment {
                 },
                 error -> {
                     Log.d("TAG", "Error: " + error.toString());
-                    //displayError(error);
+                    Utils.closeDilog();
                 });
     }
 
@@ -251,7 +257,10 @@ public class Dashboard extends Fragment {
                     binding.ivProfile.setImageBitmap(bitmap);
                     getVideosCallBack();
                 }, 0, 0, null,
-                error -> binding.ivProfile.setImageDrawable(getContext().getDrawable(R.drawable.jade_default))) {
+                error -> {
+                    binding.ivProfile.setImageDrawable(getContext().getDrawable(R.drawable.jade_default));
+                    Utils.closeDilog();
+                }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -284,18 +293,19 @@ public class Dashboard extends Fragment {
                 AppSingle.getInstance().getmAccessToken(),
                 response -> {
                     Log.d("TAG", "Response: " + response.toString());
-                    EmailData docData = new Gson().fromJson(response.toString(), EmailData.class);
-
+                    docData = new Gson().fromJson(response.toString(), EmailData.class);
+                    runSlider(list.size());
                     if (docData.getValue().size() != 0) {
                         binding.unreadEmailCount.setVisibility(View.VISIBLE);
                         binding.unreadEmailCount.setText("" + docData.getValue().size());
                     } else {
                         binding.unreadEmailCount.setVisibility(View.GONE);
                     }
-
+                    Utils.closeDilog();
                 },
                 error -> {
                     binding.unreadEmailCount.setVisibility(View.GONE);
+                    Utils.closeDilog();
                 });
     }
 

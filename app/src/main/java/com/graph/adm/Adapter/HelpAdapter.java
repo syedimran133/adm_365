@@ -94,7 +94,7 @@ public class HelpAdapter extends BaseExpandableListAdapter {
         LinearLayout ll_main = (LinearLayout) convertView
                 .findViewById(R.id.ll_main);
         if (isExpanded) {
-            img.setImageResource(R.drawable.chevronright_up);
+            img.setImageResource(R.drawable.chevronright_up_help);
             ll_main.setBackground(context.getDrawable(R.drawable.help_bg));
         } else {
             img.setImageResource(R.drawable.chevronright_down);

@@ -101,7 +101,7 @@ public class Utils {
         Activity act = (Activity) ctx;
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-            builder.setCancelable(true);
+            builder.setCancelable(false);
             LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View dialogView = inflater.inflate(R.layout.layout_progress, null);
             builder.setView(dialogView);

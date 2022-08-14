@@ -3,6 +3,8 @@ package com.graph.adm.Fragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,11 +63,45 @@ public class AddNewTaskBottomsheetFragment extends BottomSheetDialogFragment {
         adapterPriority.setDropDownViewResource(R.layout.dropdown_item);
         binding.taskCategory.setAdapter(adapterCategory);
         //setDate();
+        binding.edTaskName.addTextChangedListener(new TextWatcher() {
 
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                reset();
+            }
+        });
+        binding.edTaskInDetail.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                reset();
+            }
+        });
         binding.taskCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 category = mCategory[position];
+                reset();
             }
 
             @Override
@@ -77,6 +113,7 @@ public class AddNewTaskBottomsheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 prority = mPriority[position];
+                reset();
             }
 
             @Override
@@ -90,9 +127,12 @@ public class AddNewTaskBottomsheetFragment extends BottomSheetDialogFragment {
             myCalendar.set(Calendar.DAY_OF_MONTH, day);
             updateLabel();
         };
-        binding.tvDate.setOnClickListener(v -> new DatePickerDialog(getContext(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        binding.tvDate.setOnClickListener(v -> {
+            reset();
+            new DatePickerDialog(getContext(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
         binding.btnAssign.setOnClickListener(v -> {
-            dismiss();
+
             if (isValid()) {
                 try {
                     postDataUsingVolley();
@@ -126,31 +166,26 @@ public class AddNewTaskBottomsheetFragment extends BottomSheetDialogFragment {
     private boolean isValid() {
         boolean result = true;
         if (binding.edTaskName.getText().toString().length() == 0) {
-            //UiUtil.showToast(this, "Please enter first name");
             binding.edTaskName.setBackgroundResource(R.drawable.edittex_errort_border);
             binding.errorName.setVisibility(View.VISIBLE);
             result = false;
         }
         if (binding.edTaskInDetail.getText().toString().length() < 5) {
-            //UiUtil.showToast(this, "Please enter first name min two character");
             binding.edTaskInDetail.setBackgroundResource(R.drawable.edittex_errort_border);
             binding.errorDetail.setVisibility(View.VISIBLE);
             result = false;
         }
-        if (prority.equalsIgnoreCase("Select Priority")) {
-            // UiUtil.showToast(this, "Please enter last name");
+        if (prority.trim().equalsIgnoreCase("Select Priority")) {
             binding.llTaskPrority.setBackgroundResource(R.drawable.edittex_errort_border);
             binding.errorPrority.setVisibility(View.VISIBLE);
             result = false;
         }
-        if (category.equalsIgnoreCase("Select Category")) {
-            // UiUtil.showToast(this, "Please enter last name min two character");
+        if (category.trim().equalsIgnoreCase("Select Category")) {
             binding.llTaskCategory.setBackgroundResource(R.drawable.edittex_errort_border);
             binding.errorCategory.setVisibility(View.VISIBLE);
             result = false;
         }
         if (binding.tvDate.getText().toString().length() == 0) {
-            // UiUtil.showToast(this, "Please enter valid phone number");
             binding.tvDate.setBackgroundResource(R.drawable.edittex_errort_border);
             binding.errorDate.setVisibility(View.VISIBLE);
             result = false;
@@ -196,7 +231,7 @@ public class AddNewTaskBottomsheetFragment extends BottomSheetDialogFragment {
         param_fileds.put("AssignedToLookupId", ids);
         parameters.put("fields", param_fileds);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, parameters, response -> {
-            Toast.makeText(mContext, "successfully updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "successfully task created", Toast.LENGTH_SHORT).show();
             Utils.closeDilog();
             fragment.getToDoListCallBack(ids);
             dismiss();
@@ -213,5 +248,21 @@ public class AddNewTaskBottomsheetFragment extends BottomSheetDialogFragment {
             }
         };
         queue.add(request);
+    }
+
+
+    private void reset() {
+
+        binding.edTaskName.setBackgroundResource(R.drawable.edit_text_border);
+        binding.edTaskInDetail.setBackgroundResource(R.drawable.edit_text_border);
+        binding.llTaskPrority.setBackgroundResource(R.drawable.edit_text_border);
+        binding.llTaskCategory.setBackgroundResource(R.drawable.edit_text_border);
+        binding.tvDate.setBackgroundResource(R.drawable.edit_text_border);
+
+        binding.errorName.setVisibility(View.GONE);
+        binding.errorDetail.setVisibility(View.GONE);
+        binding.errorPrority.setVisibility(View.GONE);
+        binding.errorCategory.setVisibility(View.GONE);
+        binding.errorDate.setVisibility(View.GONE);
     }
 }

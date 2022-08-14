@@ -31,6 +31,10 @@ public class Fields {
     @Expose
     private String assignedTo;
 
+    @SerializedName("Note")
+    @Expose
+    private String note;
+
     public String getOdataEtag() {
         return odataEtag;
     }
@@ -95,4 +99,11 @@ public class Fields {
         this.assignedTo = assignedTo;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

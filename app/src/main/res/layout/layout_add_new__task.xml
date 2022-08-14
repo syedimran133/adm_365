@@ -44,7 +44,7 @@
         android:text="@string/task_name_are_empty"
         android:textColor="#f32343"
         android:textSize="8sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_task_name" />
     <EditText
@@ -64,7 +64,7 @@
         android:singleLine="false"
         android:background="@drawable/edit_text_border"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_task_name" />
+        app:layout_constraintTop_toBottomOf="@+id/error_name" />
     <TextView
         android:id="@+id/error_detail"
         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
         android:text="@string/task_detail_are_empty"
         android:textColor="#f32343"
         android:textSize="8sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_task_in_detail" />
     <LinearLayout
@@ -89,8 +89,8 @@
         android:paddingStart="9dp"
         android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ed_task_in_detail"
-        app:layout_constraintTop_toBottomOf="@+id/ed_task_in_detail"
+        app:layout_constraintStart_toStartOf="@+id/error_detail"
+        app:layout_constraintTop_toBottomOf="@+id/error_detail"
         android:orientation="horizontal"
         tools:ignore="RtlSymmetry">
 
@@ -131,9 +131,9 @@
         android:text="@string/please_select_prority"
         android:textColor="#f32343"
         android:textSize="8sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_task_prority" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_task_prority" />
     <LinearLayout
         android:id="@+id/ll_task_category"
         android:layout_width="match_parent"
@@ -145,8 +145,8 @@
         android:paddingStart="9dp"
         android:background="@drawable/edit_text_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_task_prority"
-        app:layout_constraintTop_toBottomOf="@+id/tv_task_prority"
+        app:layout_constraintStart_toStartOf="@+id/error_prority"
+        app:layout_constraintTop_toBottomOf="@+id/error_prority"
         android:orientation="horizontal"
         tools:ignore="RtlSymmetry">
 
@@ -166,7 +166,7 @@
         android:text="@string/please_select_category"
         android:textColor="#f32343"
         android:textSize="8sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_task_category" />
@@ -186,8 +186,8 @@
         android:textSize="14sp"
         app:drawableRightCompat="@drawable/date_picker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ll_task_category"
-        app:layout_constraintTop_toBottomOf="@+id/ll_task_category" />
+        app:layout_constraintStart_toStartOf="@+id/error_category"
+        app:layout_constraintTop_toBottomOf="@+id/error_category" />
 
     <TextView
         android:id="@+id/error_date"
@@ -207,7 +207,7 @@
         android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/cancel_btn"
         android:fontFamily="@font/roboto_bold"
         android:paddingLeft="30dp"
@@ -217,9 +217,9 @@
         android:text="@string/cancel"
         android:textColor="#1b5287"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+        app:layout_constraintTop_toBottomOf="@+id/error_date" />
 
     <TextView
         android:id="@+id/btn_assign"

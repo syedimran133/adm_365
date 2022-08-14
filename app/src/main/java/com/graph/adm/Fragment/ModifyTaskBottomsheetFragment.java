@@ -62,29 +62,21 @@ public class ModifyTaskBottomsheetFragment extends BottomSheetDialogFragment {
 
             }
         });
-        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
+        binding.btnCancel.setOnClickListener(v -> dismiss());
+        binding.btnModify.setOnClickListener(v -> {
+            try {
+                postDataUsingVolley(select,binding.edNote.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        });
-        binding.btnModify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    postDataUsingVolley(select,"note");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
-            }
         });
         try {
             binding.tvTaskName.setText(doListValue.getFields().getTitle());
             binding.tvTaskDetails.setText(doListValue.getFields().getDescription());
             binding.autoCompleteTextView.setSelection(findUsingStream(doListValue.getFields().getProgress(),stringArray)-1);
             binding.tvDate.setText(Utils.getStringDateString(doListValue.getFields().getDueDate(), "EEE, dd MMM YY"));
-            binding.edNote.setText("");
+            binding.edNote.setText(doListValue.getFields().getNote());
         } catch (Exception e) {
         }
 

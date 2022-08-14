@@ -139,7 +139,7 @@ public class ContactUsAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.ll_main);
         if (isExpanded) {
             img.setImageResource(R.drawable.chevronright_up);
-            ll_main.setBackground(context.getDrawable(R.drawable.help_bg));
+            ll_main.setBackground(context.getDrawable(R.drawable.help_bg_contact));
         } else {
             img.setImageResource(R.drawable.chevronright_down);
             ll_main.setBackground(context.getDrawable(R.drawable.help_bg_main));
