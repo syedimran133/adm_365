@@ -151,7 +151,7 @@ public class Documents extends Fragment {
                             @Override
                             public void onItemSelect(int position) {
                                 if (docData.getValue().get(position).getMicrosoftGraphDownloadUrl() == null) {
-                                    getInnerDocumentsCallBack(docData.getValue().get(0).getName(), docData.getValue().get(0).getParentReference().getPath() + "/" + docData.getValue().get(0).getName().replace(" ", "%20"));
+                                    getInnerDocumentsCallBack(docData.getValue().get(position).getName(), docData.getValue().get(position).getParentReference().getPath() + "/" + docData.getValue().get(0).getName().replace(" ", "%20"));
                                 } else {
                                     Utils.downloadfile(docData.getValue().get(position).getMicrosoftGraphDownloadUrl(), docData.getValue().get(position).getName(), getContext());
                                 }
@@ -198,7 +198,7 @@ public class Documents extends Fragment {
                             @Override
                             public void onItemSelect(int position) {
                                 if (docData1.getValue().get(position).getMicrosoftGraphDownloadUrl() == null) {
-                                    getInnerDocumentsCallBack(docData1.getValue().get(0).getName(), docData1.getValue().get(0).getParentReference().getPath() + "/" + docData1.getValue().get(0).getName().replace(" ", "%20"));
+                                    getInnerDocumentsCallBack(docData1.getValue().get(position).getName(), docData1.getValue().get(0).getParentReference().getPath() + "/" + docData1.getValue().get(position).getName().replace(" ", "%20"));
                                 } else {
                                     Utils.downloadfile(docData1.getValue().get(position).getMicrosoftGraphDownloadUrl(), docData1.getValue().get(position).getName(), getContext());
                                 }

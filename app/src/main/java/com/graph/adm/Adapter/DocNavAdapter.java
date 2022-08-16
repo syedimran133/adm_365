@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.graph.adm.R;
+import com.graph.adm.Utils.Utils;
 import com.graph.adm.model.documents.DocNavData;
 import com.graph.adm.model.photo.Value;
 
@@ -48,7 +49,7 @@ public class DocNavAdapter extends RecyclerView.Adapter<DocNavAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-            holder.tvName.setText(data.get(position).getName());
+            holder.tvName.setText(Utils.toTitleCase(data.get(position).getName().trim())/*.split(" ")[0]*/);
             if(position==(data.size()-1))
                 holder.tvName.setTextColor(Color.parseColor("#008ac2"));
 

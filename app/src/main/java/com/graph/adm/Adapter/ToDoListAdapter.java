@@ -70,7 +70,7 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ViewHo
                         switch (item.getItemId()) {
                             case R.id.modify:
                                 if(data.get(position).getFields().getProgress().equalsIgnoreCase("Completed")||data.get(position).getFields().getProgress().equalsIgnoreCase("Blocked")){
-                                    Toast.makeText(context, "We can't change the status of completed or blocked events.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "We can't modify completed or blocked events.", Toast.LENGTH_SHORT).show();
                                 }else{
                                     ModifyTaskBottomsheetFragment modifyTaskBottomsheetFragment=new ModifyTaskBottomsheetFragment();
                                     modifyTaskBottomsheetFragment.setvalue(context,fragment,id,data.get(position));

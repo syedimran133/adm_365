@@ -12,26 +12,34 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.graph.adm.Adapter.DocNavAdapter;
 import com.graph.adm.Adapter.DocumentsAdapter;
 import com.graph.adm.Adapter.HrDocumentsAdapter;
 import com.graph.adm.Adapter.ShareDocumentsAdapter;
+import com.graph.adm.R;
 import com.graph.adm.Utils.AppSingle;
 import com.graph.adm.Utils.FlowOrganizer;
 import com.graph.adm.Utils.MSGraphRequestWrapper;
 import com.graph.adm.Utils.Utils;
 import com.graph.adm.databinding.LayoutDocumentsBinding;
+import com.graph.adm.model.documents.DocNavData;
 import com.graph.adm.model.documents.HrPolocies.HrPoliciesData;
 import com.graph.adm.model.documents.myDocuments.MyDocumentsData;
 import com.graph.adm.model.documents.sharedDocuments.SharedWithMeData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HRPolocies extends Fragment {
 
     private LayoutDocumentsBinding binding;
     private HrDocumentsAdapter adpter;
     private boolean isVisible = false;
-
+    DocNavAdapter adapter;
+    List<DocNavData> navData = new ArrayList<>();
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -44,7 +52,7 @@ public class HRPolocies extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         binding = LayoutDocumentsBinding.inflate(inflater, container, false);
         getHrDocumentsCallBack();
-        binding.tvTitle.setText("HR Policies");
+        binding.tvTitle.setText(getString(R.string.hr_policy));
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +83,8 @@ public class HRPolocies extends Fragment {
             binding.titleLl.setVisibility(View.VISIBLE);
             binding.searchLl.setVisibility(View.GONE);
         });
+        navData.add(new DocNavData("HR Policy", "0"));
+        setTitleAdapter();
         return binding.getRoot();
     }
 
@@ -108,7 +118,7 @@ public class HRPolocies extends Fragment {
                             @Override
                             public void onItemSelect(int position) {
                                 if (docData.getValue().get(position).getMicrosoftGraphDownloadUrl() == null) {
-                                    getInnerDocumentsCallBack(docData.getValue().get(0).getParentReference().getPath()+"/"+docData.getValue().get(0).getName().replace(" ", "%20"));
+                                    getInnerDocumentsCallBack(docData.getValue().get(position).getName(),docData.getValue().get(0).getParentReference().getPath()+"/"+docData.getValue().get(0).getName().replace(" ", "%20"));
                                 }else{
                                     Utils.downloadfile(docData.getValue().get(position).getMicrosoftGraphDownloadUrl(),docData.getValue().get(position).getName(),getContext());
                                 }
@@ -133,7 +143,7 @@ public class HRPolocies extends Fragment {
                 });
     }
 
-    private void getInnerDocumentsCallBack(String path) {
+    private void getInnerDocumentsCallBack(String name,String path) {
         Utils.setProgressDialog(getContext());
         MSGraphRequestWrapper.callGraphAPIUsingVolley(
                 getContext(),
@@ -143,6 +153,8 @@ public class HRPolocies extends Fragment {
                     Log.d("TAG", "Response: " + response.toString());
                     HrPoliciesData docData = new Gson().fromJson(response.toString(), HrPoliciesData.class);
                     if (docData.getValue().size() != 0) {
+                        navData.add(new DocNavData(name, path));
+                        setTitleAdapter();
                         adpter = new HrDocumentsAdapter(getContext(),docData.getValue());
                         binding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
                         binding.rv.setAdapter(adpter);
@@ -150,7 +162,7 @@ public class HRPolocies extends Fragment {
                             @Override
                             public void onItemSelect(int position) {
                                 if (docData.getValue().get(position).getFile() == null) {
-                                    getInnerDocumentsCallBack(docData.getValue().get(0).getParentReference().getPath()+"/"+docData.getValue().get(0).getName().replace(" ", "%20"));
+                                    getInnerDocumentsCallBack(docData.getValue().get(position).getName(),docData.getValue().get(0).getParentReference().getPath()+"/"+docData.getValue().get(0).getName().replace(" ", "%20"));
                                 }else{
                                     Utils.downloadfile(docData.getValue().get(position).getMicrosoftGraphDownloadUrl(),docData.getValue().get(position).getName(),getContext());
                                 }
@@ -175,5 +187,37 @@ public class HRPolocies extends Fragment {
                     }
                     Utils.closeDilog();
                 });
+    }
+
+    private void setTitleAdapter() {
+        adapter = new DocNavAdapter(getContext(), navData);
+        binding.rvTitle.setAdapter(adapter);
+        binding.rvTitle.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        adapter.registerOnItemClickListener(position -> {
+            if (navData.get(position).getPath().equalsIgnoreCase("0")) {
+                getHrDocumentsCallBack();
+            } else {
+                getInnerDocumentsCallBack( navData.get(position).getName(),navData.get(position).getPath());
+            }
+            if (position == 0) {
+                navData.clear();
+                navData.add(new DocNavData("HR Policy", "0"));
+                setTitleAdapter();
+            } else {
+                List<DocNavData> temp = new ArrayList<>();
+                temp.addAll(filter(navData, position));
+                navData.clear();
+                navData.addAll(temp);
+                setTitleAdapter();
+            }
+        });
+    }
+
+    private List<DocNavData> filter(List<DocNavData> data, int index) {
+        List<DocNavData> temp = new ArrayList<>();
+        for (int i = 0; i < index; i++) {
+            temp.add(data.get(i));
+        }
+        return temp;
     }
 }

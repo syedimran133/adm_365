@@ -1,5 +1,6 @@
 package com.graph.adm.Fragment;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,7 +71,13 @@ public class Dashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 youTubePlayerView.release();
-                FlowOrganizer.getInstance().add(new FragmentEmail(), true);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setComponent(new ComponentName("com.microsoft.office.outlook","com.microsoft.office.outlook.MainActivity"));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    FlowOrganizer.getInstance().add(new FragmentEmail(), true);
+                }
             }
         });
         binding.btnjGallary.setOnClickListener(new View.OnClickListener() {

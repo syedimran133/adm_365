@@ -14,12 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.graph.adm.Fragment.PhotoSingel;
 import com.graph.adm.R;
 import com.graph.adm.Utils.LoadImage;
+import com.graph.adm.Utils.Utils;
 import com.graph.adm.model.singalPhoto.SingalPhotoData;
 
 public class ViewPhoto extends AppCompatActivity implements View.OnTouchListener {
 
     String fileName = "", fileUrl = "";
-    ImageView inPhoto, back_view_img;
+    ImageView inPhoto, back_view_img,btnDownload;
     TextView title;
     private float x1, x2;
     static final int MIN_DISTANCE = 150;
@@ -44,11 +45,18 @@ public class ViewPhoto extends AppCompatActivity implements View.OnTouchListener
         setContentView(R.layout.layout_view_photo);
         inPhoto = findViewById(R.id.in_photo);
         back_view_img = findViewById(R.id.back_view_img);
+        btnDownload = findViewById(R.id.btn_download);
         title = findViewById(R.id.tv_title);
         fileName = getIntent().getStringExtra("FileName");
         fileUrl = getIntent().getStringExtra("FileURL");
         index = getIntent().getIntExtra("Index", 0);
         title.setText(fileName);
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.downloadfile(PhotoSingel.userData.getValue().get(index).getMicrosoftGraphDownloadUrl(), PhotoSingel.userData.getValue().get(index).getName(), getApplicationContext());
+            }
+        });
         if (fileUrl != null) {
             new LoadImage(getApplicationContext(), inPhoto).execute(PhotoSingel.userData.getValue().get(index).getMicrosoftGraphDownloadUrl());
         } else {

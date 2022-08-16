@@ -151,7 +151,7 @@ public class SharedDocuments extends Fragment {
 
     private void getInnerDocumentsCallBack(String name, String drive_id, String item_id) {
         Utils.setProgressDialog(getContext());
-        Log.d("URL :: ", "https://graph.microsoft.com/v1.0/me/drives/" + drive_id + "/items/" + item_id + "/children");
+        Log.e("URL :: ", "https://graph.microsoft.com/v1.0/me/drives/" + drive_id + "/items/" + item_id + "/children");
         MSGraphRequestWrapper.callGraphAPIUsingVolley(
                 getContext(),
                 "https://graph.microsoft.com/v1.0/me/drives/" + drive_id + "/items/" + item_id + "/children",
@@ -161,6 +161,7 @@ public class SharedDocuments extends Fragment {
                     SharedWithMeData docData = new Gson().fromJson(response.toString(), SharedWithMeData.class);
                     if (docData.getValue().size() != 0) {
                         d_id=drive_id;
+                        navData.add(new DocNavData(name, item_id));
                         setTitleAdapter();
                         binding.rv.setVisibility(View.VISIBLE);
                         binding.tvError.setVisibility(View.GONE);
@@ -170,11 +171,8 @@ public class SharedDocuments extends Fragment {
                         adpter.registerOnItemClickListener(new ShareDocumentsAdapter.IonItemSelect() {
                             @Override
                             public void onItemSelect(int position) {
-                                navData.add(new DocNavData(name, docData.getValue().get(position).getId()));
-                                setTitleAdapter();
                                 if (docData.getValue().get(position).getFile() == null) {
                                     if (docData.getValue().get(position).getFolder().getChildCount() != 0) {
-
                                         getInnerDocumentsCallBack(docData.getValue().get(position).getName(), docData.getValue().get(position).getParentReference().getDriveId(), docData.getValue().get(position).getId());
                                     } else {
                                         Toast.makeText(getContext(), "No Items inside this folder.", Toast.LENGTH_SHORT).show();
@@ -230,7 +228,7 @@ public class SharedDocuments extends Fragment {
             if (navData.get(position).getPath().equalsIgnoreCase("0")) {
                 getMyDocumentsCallBack();
             } else {
-                getInnerDocumentsCallBack(d_id, navData.get(position).getName(), navData.get(position).getPath());
+                getInnerDocumentsCallBack(navData.get(position).getName(),d_id , navData.get(position).getPath());
             }
             if (position == 0) {
                 navData.clear();

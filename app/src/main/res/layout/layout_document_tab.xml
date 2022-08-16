@@ -141,7 +141,7 @@
             android:textStyle="bold"
             android:textColor="#2d2d2d"
             android:paddingStart="15dp"
-            android:text="HR Policies" />
+            android:text="@string/hr_policy" />
 
         <LinearLayout
             android:layout_width="match_parent"

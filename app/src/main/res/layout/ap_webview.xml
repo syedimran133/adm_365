@@ -35,7 +35,8 @@
                 android:layout_height="35dp"
                 android:layout_marginLeft="5dp"
                 android:padding="3dp"
-                app:srcCompat="@drawable/close_stop"  />
+                app:srcCompat="@drawable/close_stop"
+                app:tint="#ffffff" />
         </LinearLayout>
 
 
