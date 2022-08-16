@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,6 +58,7 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ViewHo
         holder.tv_todo_description.setText(Utils.toTitleCase(data.get(position).getFields().getDescription()));
         holder.tv_todo_status.setText(" "+data.get(position).getFields().getProgress());
         holder.tv_todo_due_date.setText(Utils.getStringDateString(data.get(position).getFields().getDueDate(), "EEE, dd MMM YY"));
+    
         holder.btnThreeDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,9 +69,14 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ViewHo
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.modify:
-                                ModifyTaskBottomsheetFragment modifyTaskBottomsheetFragment=new ModifyTaskBottomsheetFragment();
-                                modifyTaskBottomsheetFragment.setvalue(context,fragment,id,data.get(position));
-                                modifyTaskBottomsheetFragment.show(fragment.getParentFragmentManager(),modifyTaskBottomsheetFragment.getTag());
+                                if(data.get(position).getFields().getProgress().equalsIgnoreCase("Completed")||data.get(position).getFields().getProgress().equalsIgnoreCase("Blocked")){
+                                    Toast.makeText(context, "We can't change the status of completed or blocked events.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    ModifyTaskBottomsheetFragment modifyTaskBottomsheetFragment=new ModifyTaskBottomsheetFragment();
+                                    modifyTaskBottomsheetFragment.setvalue(context,fragment,id,data.get(position));
+                                    modifyTaskBottomsheetFragment.show(fragment.getParentFragmentManager(),modifyTaskBottomsheetFragment.getTag());
+                                }
+
                                 return true;
                             default:
                                 return false;

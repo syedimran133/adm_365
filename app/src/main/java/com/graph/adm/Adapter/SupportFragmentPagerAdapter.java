@@ -41,7 +41,7 @@ public class SupportFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fr = null;
-        if (position == 0) {
+       /* if (position == 0) {
             fr= JService.newInstance(position,data.get(0).getFields());
         } else if (position == 1) {
             fr= Joss.newInstance(position,data.get(2).getFields());
@@ -53,7 +53,7 @@ public class SupportFragmentPagerAdapter extends FragmentPagerAdapter {
             fr= JRecruit.newInstance(position,data.get(5).getFields());
         }else if (position == 5) {
             fr= Contact.newInstance(position,data.get(6).getFields());
-        }
+        }*/
         return fr;
     }
 

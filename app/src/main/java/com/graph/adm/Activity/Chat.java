@@ -19,9 +19,11 @@ import com.graph.adm.Utils.FlowOrganizer;
 import com.graph.adm.databinding.LayoutWebviewBinding;
 
 public class Chat   extends AppCompatActivity {
+
     private LayoutWebviewBinding binding;
     private WebView webView;
     private ProgressDialog progressDialog;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
@@ -34,7 +36,8 @@ public class Chat   extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
-        String data_html = "<!DOCTYPE html><html> <head> <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"target-densitydpi=high-dpi\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" media=\"screen and (-webkit-device-pixel-ratio:1.5)\" href=\"hdpi.css\" /></head> <body style=\"background:white;margin:0 0 0 0; padding:0 0 0 0;\"> <iframe src=\"https://web.powerva.microsoft.com/webchat/bots/955ad312-0411-4e11-8ad9-f791b0259fef\" frameBorder=\"0\" width=\"100%\" height=\"800px\" ></iframe> </body> </html> ";
+        /*String data_html = "<!DOCTYPE html><html> <head> <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"target-densitydpi=high-dpi\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" media=\"screen and (-webkit-device-pixel-ratio:1.5)\" href=\"hdpi.css\" /></head> <body style=\"background:white;margin:0 0 0 0; padding:0 0 0 0;\"> <iframe src=\"https://web.powerva.microsoft.com/webchat/bots/955ad312-0411-4e11-8ad9-f791b0259fef\" frameBorder=\"0\" width=\"100%\" height=\"800px\" ></iframe> </body> </html> ";*/
+        String data_html = "<!DOCTYPE html><html> <head> <meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"target-densitydpi=high-dpi\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"stylesheet\" media=\"screen and (-webkit-device-pixel-ratio:1.5)\" href=\"hdpi.css\" /></head> <body style=\"background:white;margin:0 0 0 0; padding:0 0 0 0;\"> <iframe src=\"https://web.powerva.microsoft.com/environments/Default-6953ed17-d2a1-4615-84a1-dbfcb7984eaa/bots/new_bot_955ad31204114e118ad9f791b0259fef/webchat\" frameBorder=\"0\" width=\"100%\" height=\"800px\" ></iframe> </body> </html>";
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setLoadWithOverviewMode(true);

@@ -165,7 +165,8 @@ public class ToDoList extends Fragment {
             if (value.get(i).getFields().getProgress().equalsIgnoreCase("In progress")) {
                 InProgress_count++;
             }
-            if (value.get(i).getFields().getProgress().equalsIgnoreCase("Not started")) {
+            //Not strated
+            if (value.get(i).getFields().getProgress().equalsIgnoreCase("Not strated")) {
                 NotStarted_count++;
             }
         }

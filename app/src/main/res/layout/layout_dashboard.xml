@@ -17,20 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingTop="15dp">
+            android:paddingStart="10dp"
+            android:paddingTop="18dp">
 
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/iv_profile"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 app:civ_border_width="0dp"
+                android:layout_marginLeft="7dp"
                 app:srcCompat="@drawable/jade_default" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -88,8 +89,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/sheet_bg"
             android:gravity="bottom"
             android:orientation="vertical">
 
@@ -108,7 +109,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
 
@@ -376,7 +377,7 @@
                     <LinearLayout
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="155dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:visibility="gone">
@@ -391,7 +392,7 @@
                             android:layout_width="220dp"
                             android:layout_height="10dp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="10dp"
                             app:tabBackground="@drawable/viewpager_tab_selector"
                             app:tabGravity="center"
                             app:tabIndicatorHeight="0dp" />

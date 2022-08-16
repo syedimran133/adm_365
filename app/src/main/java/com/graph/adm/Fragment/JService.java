@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.dynamicanimation.animation.FlingAnimation;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.graph.adm.Adapter.DocumentsAdapter;
+import com.graph.adm.R;
+import com.graph.adm.Utils.FlowOrganizer;
 import com.graph.adm.databinding.LayoutDocumentsBinding;
 import com.graph.adm.databinding.LayoutSupportTabBinding;
 import com.graph.adm.model.support.Fields;
@@ -17,27 +20,28 @@ import com.graph.adm.model.support.Fields;
 public class JService extends Fragment {
 
     private LayoutSupportTabBinding binding;
-    public static final String ARG_PAGE = "ARG_PAGE";
     private static Fields dataInner;
 
-    public static JService newInstance(int page,Fields data) {
-        Bundle args = new Bundle();
-        args.putInt(ARG_PAGE, page);
-        JService fragment = new JService();
-        fragment.setArguments(args);
+    public void newInstance(Fields data) {
         dataInner=data;
-        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         binding = LayoutSupportTabBinding.inflate(inflater, container, false);
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FlowOrganizer.getInstance().add(new SupportService());
+            }
+        });
         return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.tvServiceTitle.setText(dataInner.getTitle());
+        binding.title.setText(dataInner.getTitle());
+        binding.img.setImageDrawable(getContext().getDrawable(R.drawable.jservice));
         binding.tvServiceDescription.setText(dataInner.getDescription());
         binding.tvServiceEmail.setText("Email : "+dataInner.getPrimaryContactEmail());
         binding.tvServiceMobile.setText("Phone : "+dataInner.getPrimaryContactPhone().toString());
