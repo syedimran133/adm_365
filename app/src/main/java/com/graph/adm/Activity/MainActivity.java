@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btn_calendar = findViewById(R.id.btn_calendar);
         AppSingle.getInstance().initActivity(this);
         FlowOrganizer.getInstance().initParentFrame(binding.fragmentContainer);
+
         btn_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

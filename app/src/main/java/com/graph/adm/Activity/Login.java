@@ -75,7 +75,7 @@ public class Login extends AppCompatActivity {
     }
 
     private String[] getScopes() {
-        String[] arr = {"User.Read","Calendars.Read","Sites.Read.All","Sites.ReadWrite.All","Mail.Read"};
+        String[] arr = {"User.Read","Calendars.Read","Sites.Read.All","Sites.ReadWrite.All","Mail.Read","Files.ReadWrite","Files.ReadWrite.All","Sites.ReadWrite.All"};
         return arr;
     }
 

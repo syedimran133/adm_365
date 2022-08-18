@@ -30,6 +30,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.graph.adm.R;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +39,11 @@ import java.util.Date;
 
 public class Utils {
     public static AlertDialog dialog;
+
+    public static double getSize(long  size) {
+        double m = ((size/1024.0)/1024.0);
+        return m;
+    }
 
     public static Date getStringToDate(String dtStart) {
         //Date c = Calendar.getInstance().getTime()
@@ -53,25 +59,27 @@ public class Utils {
         //cal.setTime(date);
         return date;
     }
+
     public static int getImf(String type) {
         int res = 0;
         if (type.equalsIgnoreCase("jpg") || type.equalsIgnoreCase("png") || type.equalsIgnoreCase("gif")) {
-            res=R.drawable.ic_photo;
+            res = R.drawable.ic_photo;
         } else if (type.equalsIgnoreCase("pdf")) {
-            res=R.drawable.ic_pdf;
-        } else if (type.equalsIgnoreCase("docx")){
-            res=R.drawable.ic_docx;
-        }else if (type.equalsIgnoreCase("pptx")){
-            res=R.drawable.ic_pptx;
-        }else if (type.equalsIgnoreCase("xlsx")){
-            res=R.drawable.ic_xlsx;
-        }else if (type.equalsIgnoreCase("html")){
-            res=R.drawable.ic_link;
-        }else{
-            res=R.drawable.file_earmark;
+            res = R.drawable.ic_pdf;
+        } else if (type.equalsIgnoreCase("docx")) {
+            res = R.drawable.ic_docx;
+        } else if (type.equalsIgnoreCase("pptx")) {
+            res = R.drawable.ic_pptx;
+        } else if (type.equalsIgnoreCase("xlsx")) {
+            res = R.drawable.ic_xlsx;
+        } else if (type.equalsIgnoreCase("html")) {
+            res = R.drawable.ic_link;
+        } else {
+            res = R.drawable.file_earmark;
         }
         return res;
     }
+
     public static String printDifference(Date startDate) {
         String str = "";
         try {
@@ -118,6 +126,7 @@ public class Utils {
         } catch (Exception e) {
         }
     }
+
     public static String toTitleCase(String string) {
 
         // Check if String is null
@@ -157,10 +166,12 @@ public class Utils {
 
         return builder.toString(); // Return builders text
     }
+
     public static String getDateString(Date d, String fromt) {
         DateFormat dateFormat = new SimpleDateFormat(fromt);
         return dateFormat.format(d);
     }
+
     public static String getStringDateString(String d, String fromt) {
         Date date = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -172,6 +183,7 @@ public class Utils {
         DateFormat dateFormat = new SimpleDateFormat(fromt);
         return dateFormat.format(date);
     }
+
     public static void closeDilog() {
         try {
             dialog.dismiss();
@@ -179,6 +191,7 @@ public class Utils {
         }
 
     }
+
     public static void setupPieChart(PieChart pieChart, ArrayList<PieEntry> entries) {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setUsePercentValues(true);
@@ -197,7 +210,7 @@ public class Utils {
         loadPieChartData(pieChart, entries);
     }
 
-    public static ArrayList<PieEntry> getPieEntry(float f1, float f2,float f3, float f4, float f5) {
+    public static ArrayList<PieEntry> getPieEntry(float f1, float f2, float f3, float f4, float f5) {
         ArrayList<PieEntry> entries = new ArrayList<>();
         entries.add(new PieEntry(f1));
         entries.add(new PieEntry(f2));
@@ -225,6 +238,7 @@ public class Utils {
         pieChart.invalidate();
         pieChart.animateY(1400, Easing.EaseInOutQuad);
     }
+
     public static String getCalculatedDate(int days) {
         String dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
         Calendar cal = Calendar.getInstance();

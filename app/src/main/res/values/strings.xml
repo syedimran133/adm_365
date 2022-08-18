@@ -65,6 +65,7 @@
     <string name="task_detail_are_empty">Task detail are empty</string>
     <string name="task_name_are_empty">Task name are empty</string>
     <string name="hr_policy">HR Policy</string>
+    <string name="phone_number">Phone Number</string>
 
     <string-array name="status">
         <item>Not Started</item>
